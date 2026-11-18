@@ -1,11 +1,13 @@
-import { Login, Esqueci, EsqueciOk, Cadastro, Boas } from './Auth';
+import type { ComponentType } from 'react';
+import { Abrindo, Login, Esqueci, EsqueciOk, Cadastro, Boas } from './Auth';
 import { Home } from './Home';
-import { Apolices, Apolice, Pdf } from './Policies';
+import { Apolices, Apolice } from './Policies';
 import { Assist, Sinistro, SinNovo, SinOk, SinDet } from './Claims';
 import { Cotacao, CotProd, CotForm, CotDet } from './Quotes';
-import { Indicar, Notif, Config, Perfil, Dados, Ajuda } from './More';
+import { Indicar, Notif, Config, Perfil, Dados, Ajuda, Instalar } from './More';
 
-export const SCREENS = {
+export const SCREENS: Record<string, ComponentType<{ arg?: string }>> = {
+  abrindo: Abrindo,
   login: Login,
   esqueci: Esqueci,
   esqueciok: EsqueciOk,
@@ -14,7 +16,6 @@ export const SCREENS = {
   home: Home,
   apolices: Apolices,
   apolice: Apolice,
-  pdf: Pdf,
   assist: Assist,
   sinistro: Sinistro,
   'sin-novo': SinNovo,
@@ -30,4 +31,5 @@ export const SCREENS = {
   perfil: Perfil,
   dados: Dados,
   ajuda: Ajuda,
+  instalar: Instalar,
 };
