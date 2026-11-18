@@ -29,8 +29,12 @@ export default tseslint.config(
     },
   },
   {
-    files: ['scripts/**', '*.config.{js,ts}'],
+    files: ['scripts/**', '*.config.{js,ts}', 'pwa/plugin.js'],
     languageOptions: { globals: { ...globals.node } },
+  },
+  {
+    files: ['pwa/sw.js'],
+    languageOptions: { globals: { ...globals.serviceworker } },
   },
   // Desliga as regras de estilo que brigam com o Prettier.
   prettier,
