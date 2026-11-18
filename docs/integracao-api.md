@@ -1,7 +1,8 @@
 # Integração com a API
 
-Como ligar as telas do app na API do App do Segurado. O cliente, os tipos e uma função por rota
-**já estão prontos** em `src/api/`: as telas só importam e chamam.
+Como as telas do app falam com a API do App do Segurado. O cliente, os tipos e uma função por rota
+ficam em `src/api/`, e **todas as telas já estão ligadas** (tabela da seção 6). Use este guia ao
+criar uma tela nova ou mexer numa existente.
 
 ## 1. Endereços
 
@@ -95,8 +96,14 @@ export function Apolices() {
 }
 ```
 
-Esse bloco se repete em toda tela: vale extrair um hook `useApi(() => listarApolices())` em
-`src/hooks/` (issue #3).
+Esse bloco já está pronto para reaproveitar:
+
+- `useApi(() => buscarApolice(id), [id])` e `usePaginado(listarApolices)` (com "carregar mais"),
+  em `src/hooks/useApi.ts`;
+- `<ComDados r={r}>{(dados) => ...}</ComDados>`, em `src/ui.tsx`, mostra carregando e erro com
+  "tentar de novo";
+- `useEnvio()`, em `src/hooks/useEnvio.ts`, cuida de formulário: enviando, erro por campo (400) e
+  erro geral, com as mensagens da API já traduzidas para a pessoa.
 
 ## 5. Formulários e erros
 

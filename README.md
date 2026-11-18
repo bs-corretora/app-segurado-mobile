@@ -10,8 +10,9 @@ App do segurado da BS Seguros: PWA em React + Vite, ligado à API do repositóri
 
 Paleta extraída do logo: índigo `#494A99` e azul-céu `#37A6DE` (com modo escuro automático).
 
-> As telas ainda mostram dados de exemplo (`src/data.js`) enquanto a integração das issues
-> #3 a #9 não termina.
+Todas as telas estão ligadas na API. O app é um **PWA**: dá para instalar na tela inicial do
+celular (Android: botão "Instalar o app" em Configurações ou o aviso do Chrome; iPhone: no Safari,
+Compartilhar → Adicionar à Tela de Início) e ele abre mesmo sem internet.
 
 ## Como rodar
 
@@ -32,18 +33,34 @@ Para apontar para uma API local, crie `.env.local` com
 
 ## Estrutura
 
-| Caminho             | O que tem                                                        |
-| ------------------- | ---------------------------------------------------------------- |
-| `src/api/`          | cliente da API, tipos das respostas e uma função por rota        |
-| `src/nav.jsx`       | navegação por pilha (abas e telas internas)                      |
-| `src/screens/`      | telas: Auth, Home, Policies, Claims, Quotes, More                |
-| `src/ui.jsx`        | ícones e componentes (Card, Field, Select, Tag, Contact…)        |
-| `src/data.js`       | rótulos, status e dados de exemplo (estes saem com a integração) |
-| `src/styles.css`    | tokens de cor e estilos                                          |
-| `tests/`            | testes unitários (Vitest)                                        |
-| `scripts/smoke.mjs` | teste de fumaça: renderiza todas as telas                        |
+| Caminho             | O que tem                                                                   |
+| ------------------- | --------------------------------------------------------------------------- |
+| `src/api/`          | cliente da API, tipos das respostas e uma função por rota                   |
+| `src/screens/`      | telas: Auth, Home, Policies, Claims, Quotes, More                           |
+| `src/nav.tsx`       | navegação por pilha (abas, telas internas e botão voltar do aparelho)       |
+| `src/sessao.tsx`    | resumo da pessoa logada (nome, sininho, apólices ativas)                    |
+| `src/hooks/`        | `useApi`/`usePaginado` (carregando, erro, vazio) e `useEnvio` (formulários) |
+| `src/ui.tsx`        | ícones e componentes (Card, Campo, Selecao, Aviso, ComDados, Contato…)      |
+| `src/formatos.ts`   | datas, moeda, máscaras de CPF e telefone, mensagens de erro                 |
+| `src/rotulos.ts`    | texto de cada código da API (status, produto, tipo de sinistro…)            |
+| `src/pwa/`          | instalação na tela inicial e aviso de versão nova                           |
+| `pwa/`              | modelo do service worker e o plugin do Vite que gera o `/sw.js` no build    |
+| `public/`           | manifesto e ícones do PWA                                                   |
+| `src/styles.css`    | tokens de cor e estilos                                                     |
+| `tests/`            | testes unitários (Vitest): cliente da API, formatos, navegação e PWA        |
+| `scripts/smoke.mjs` | teste de fumaça: renderiza todas as telas                                   |
 
-A reorganização em pastas por assunto e a migração dos `.jsx` para TypeScript estão na issue #2.
+## PWA
+
+- **Service worker** (`pwa/sw.js`): guarda só o app (HTML, JS, CSS, ícones) para abrir rápido e
+  sem internet. **Nada da API nem os PDFs** passam pelo cache: dado do segurado sempre vem da rede.
+- **Versão nova:** cada build gera um `/sw.js` com a lista exata dos arquivos e uma versão nova.
+  Quem está com o app aberto vê a faixa "Nova versão do app disponível" e escolhe quando atualizar.
+- **Só no build:** no `npm run dev` o service worker não é registrado. Para testar o PWA:
+  `npm run build && npx vite preview --port 5173`.
+- **Sem push com o app fechado** (o envio da API é do Expo). O sininho usa `nao_lidas` do
+  dashboard e se atualiza quando a pessoa volta ao app.
+- **Ícones** em `public/icons/`, gerados a partir do "B" do logo.
 
 ## Qualidade
 
@@ -54,4 +71,6 @@ Todo PR passa por lint, formatação, TypeScript, testes, build em Linux, Gitlea
 
 - Tipos de cobertura por produto (a spec não lista).
 - Campos do formulário de cotação por produto.
-- Tela de termos de uso (o cadastro pede o aceite).
+- Tela de termos de uso (o cadastro pede o aceite, mas ainda não há texto para linkar).
+- Ícones do PWA em alta resolução: os de `public/icons/` foram ampliados do logo de 540 px; um
+  SVG ou PNG grande do "B" deixa o ícone mais nítido.
