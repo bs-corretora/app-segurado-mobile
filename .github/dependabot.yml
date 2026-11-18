@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels: [dependências]
+    commit-message:
+      prefix: chore(deps)
+    # Versão maior (TypeScript 7, ESLint 10...) pede migração: entra por issue própria, não por PR
+    # automático. Alerta de segurança continua chegando pelas correções de segurança do Dependabot.
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      # Atualizações menores e de correção chegam juntas num PR só.
+      menores:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    labels: [dependências]
+    commit-message:
+      prefix: ci(deps)
