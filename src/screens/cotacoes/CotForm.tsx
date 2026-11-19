@@ -1,0 +1,106 @@
+import { useEffect, useState } from 'react';
+import type { FormEvent } from 'react';
+import { PRODUTO, COBERTURAS, MOTIVO } from '../../constants/rotulos';
+import { buscarPerfil, pedirCotacao } from '../../api';
+import type { Produto, DadosCotacao, MotivoCotacao } from '../../api';
+import { AreaTexto, Aviso, Botao, Campo, Selecao } from '../../components';
+import { mascaraTelefone, soDigitos } from '../../utils/formatos';
+import { useEnvio } from '../../hooks/useEnvio';
+import { useNav } from '../../app/nav';
+
+const ehProduto = (p: string | undefined): p is Produto => !!p && p in PRODUTO;
+
+export function CotForm({ arg }: { arg?: string }) {
+  const { go } = useNav();
+  const envio = useEnvio();
+  const produto: Produto = ehProduto(arg) ? arg : 'AUTO';
+  const coberturas = COBERTURAS[produto];
+  const [f, setF] = useState({
+    motivo: 'NOVO' as MotivoCotacao,
+    cobertura: coberturas[0] ?? '',
+    telefone: '',
+    detalhes: '',
+  });
+  const muda =
+    <K extends keyof typeof f>(k: K) =>
+    (v: (typeof f)[K]) =>
+      setF((atual) => ({ ...atual, [k]: v }));
+
+  // Já sugere o telefone do cadastro.
+  useEffect(() => {
+    let ativo = true;
+    buscarPerfil()
+      .then((p) => {
+        if (ativo && p.telefone)
+          setF((atual) =>
+            atual.telefone ? atual : { ...atual, telefone: mascaraTelefone(p.telefone!) },
+          );
+      })
+      .catch(() => {});
+    return () => {
+      ativo = false;
+    };
+  }, []);
+
+  const aoEnviar = async (e: FormEvent) => {
+    e.preventDefault();
+    const dados: DadosCotacao = { cobertura: f.cobertura };
+    const tel = soDigitos(f.telefone);
+    if (tel) dados.telefone = tel;
+    if (f.detalhes.trim()) dados.detalhes = f.detalhes.trim();
+    const r = await envio.enviar(
+      () => pedirCotacao({ produto, motivo: f.motivo, dados }),
+      () =>
+        tel && tel.length !== 10 && tel.length !== 11
+          ? { telefone: 'Informe o telefone com DDD.' }
+          : {},
+    );
+    if (!r) return;
+    go('cotacao');
+    go('cot-det', r.id);
+  };
+
+  return (
+    <form onSubmit={aoEnviar} noValidate>
+      <div className="card">
+        <span className="mut">Produto</span>
+        <br />
+        <b>{PRODUTO[produto]}</b>
+      </div>
+      <Selecao
+        label="Tipo de pedido"
+        value={f.motivo}
+        onChange={(v) => muda('motivo')(v as MotivoCotacao)}
+        opcoes={Object.entries(MOTIVO)}
+        erro={envio.campos.motivo}
+      />
+      <Selecao
+        label="Tipo de cobertura"
+        value={f.cobertura}
+        onChange={muda('cobertura')}
+        opcoes={coberturas.map((c) => [c, c] as const)}
+      />
+      <Campo
+        label="Telefone para contato"
+        type="tel"
+        placeholder="(00) 00000-0000"
+        inputMode="tel"
+        autoComplete="tel-national"
+        value={f.telefone}
+        onChange={(v) => muda('telefone')(mascaraTelefone(v))}
+        erro={envio.campos.telefone}
+      />
+      <AreaTexto
+        label="Detalhes do pedido"
+        placeholder="Informe o que você precisa"
+        value={f.detalhes}
+        onChange={muda('detalhes')}
+        erro={envio.campos.dados}
+      />
+      {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
+      <Botao type="submit" carregando={envio.enviando}>
+        Enviar pedido
+      </Botao>
+    </form>
+  );
+}

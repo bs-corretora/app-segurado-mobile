@@ -2,8 +2,8 @@
 // entre o cabeçalho e o início. Vem de GET /dashboard e é atualizado quando a pessoa volta ao app.
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
-import { buscarDashboard, type Dashboard } from './api';
-import { mensagemDeErro } from './formatos';
+import { buscarDashboard, type Dashboard } from '../api';
+import { mensagemDeErro } from '../utils/formatos';
 
 type Sessao = {
   resumo: Dashboard | null;

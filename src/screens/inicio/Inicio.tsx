@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useNav } from '../nav';
-import { useSessao } from '../sessao';
-import { paraInputDataHora, primeiroNome, tempoDeCasa } from '../formatos';
-import { Botao, Card, CartaoApolice, Carregando, Erro, Icon, Vazio } from '../ui';
-import type { NomeIcone } from '../ui';
+import { paraInputDataHora, primeiroNome, tempoDeCasa } from '../../utils/formatos';
+import { Botao, Card, Carregando, CartaoApolice, Erro, Icon, Vazio } from '../../components';
+import type { NomeIcone } from '../../components';
+import { useNav } from '../../app/nav';
+import { useSessao } from '../../app/sessao';
 
 const CHAVE_ANIVERSARIO = 'aniversario-fechado';
+
 const hoje = () => paraInputDataHora(new Date()).slice(0, 10);
 
 function aniversarioFechadoHoje(): boolean {
@@ -22,7 +23,7 @@ const ATALHOS: [tela: string, icone: NomeIcone, texto: string][] = [
   ['cotacao', 'quote', 'Cotação'],
 ];
 
-export function Home() {
+export function Inicio() {
   const { go } = useNav();
   const { resumo, erro, atualizar } = useSessao();
   const [fechouAniversario, setFechouAniversario] = useState(aniversarioFechadoHoje);

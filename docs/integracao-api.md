@@ -100,7 +100,7 @@ Esse bloco já está pronto para reaproveitar:
 
 - `useApi(() => buscarApolice(id), [id])` e `usePaginado(listarApolices)` (com "carregar mais"),
   em `src/hooks/useApi.ts`;
-- `<ComDados r={r}>{(dados) => ...}</ComDados>`, em `src/ui.tsx`, mostra carregando e erro com
+- `<ComDados r={r}>{(dados) => ...}</ComDados>`, em `src/components/ComDados.tsx`, mostra carregando e erro com
   "tentar de novo";
 - `useEnvio()`, em `src/hooks/useEnvio.ts`, cuida de formulário: enviando, erro por campo (400) e
   erro geral, com as mensagens da API já traduzidas para a pessoa.

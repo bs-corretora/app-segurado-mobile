@@ -1,7 +1,7 @@
 // Estado de um formulário que manda dado para a API: enviando, erro por campo (400) e erro geral.
 import { useCallback, useRef, useState } from 'react';
 import { ErroApi } from '../api';
-import { mensagemDeCampo, mensagemDeErro } from '../formatos';
+import { mensagemDeCampo, mensagemDeErro } from '../utils/formatos';
 
 /** Depois deste tempo enviando, a tela avisa que o servidor pode estar acordando. */
 const AVISO_DEMORA_MS = 6000;

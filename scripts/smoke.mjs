@@ -19,9 +19,9 @@ const vite = await createServer({
   appType: 'custom',
   logLevel: 'error',
 });
-const { Raiz } = await vite.ssrLoadModule('/src/App.tsx');
+const { Raiz } = await vite.ssrLoadModule('/src/app/App.tsx');
 const { SCREENS } = await vite.ssrLoadModule('/src/screens/index.ts');
-const { PRODUTOS } = await vite.ssrLoadModule('/src/rotulos.ts');
+const { PRODUTOS } = await vite.ssrLoadModule('/src/constants/rotulos.ts');
 
 const ID = '00000000-0000-0000-0000-000000000000';
 const args = {

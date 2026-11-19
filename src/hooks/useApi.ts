@@ -1,7 +1,7 @@
 // Os três estados de toda tela que lê dado: carregando, erro (com "tentar de novo") e pronto.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Pagina } from '../api';
-import { mensagemDeErro } from '../formatos';
+import { mensagemDeErro } from '../utils/formatos';
 
 export type ResultadoApi<T> = {
   dados: T | null;

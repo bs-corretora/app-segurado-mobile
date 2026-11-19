@@ -7,7 +7,7 @@ import type {
   StatusIndicacao,
   StatusSinistro,
   TipoSinistro,
-} from './api';
+} from '../api';
 
 /** Rótulo das abas. */
 export const ROTULO_ABA = {
