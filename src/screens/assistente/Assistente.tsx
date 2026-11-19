@@ -5,6 +5,7 @@ import { MAX_TEXTO, useConversa } from '../../hooks/useConversa';
 import type { MensagemConversa } from '../../hooks/useConversa';
 import { destinoDoAtalho } from '../../utils/destinoAtalho';
 import { useNav } from '../../app/nav';
+import { trechosDoAssistente } from '../../utils/textoAssistente';
 
 const SUGESTOES = [
   'Quando vence minha apólice?',
@@ -23,7 +24,11 @@ function Balao({ m }: { m: MensagemConversa }) {
   const fontes = m.fontes ?? [];
   return (
     <div className="balao ia">
-      <span className="quebra">{m.texto}</span>
+      <span className="quebra">
+        {trechosDoAssistente(m.texto).map((t, i) =>
+          t.negrito ? <strong key={i}>{t.texto}</strong> : <span key={i}>{t.texto}</span>,
+        )}
+      </span>
       {atalhos.length > 0 && (
         <div className="atalhos">
           {atalhos.map(({ rotulo, destino: [tela, arg] }) => (
