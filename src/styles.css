@@ -599,3 +599,123 @@ details p {
   font: 600 13px system-ui;
   cursor: pointer;
 }
+
+/* Assistente: balões, sugestões e campo de envio fixo embaixo */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.chat-vazio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.chat-vazio > b {
+  font-size: 17px;
+}
+.sugestao {
+  text-align: left;
+  font: 600 15px system-ui;
+  color: var(--lk);
+  background: var(--sec-l);
+  border: 1px solid var(--sec);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+.balao {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.balao.eu {
+  align-self: flex-end;
+  background: var(--pri);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.balao.ia {
+  align-self: flex-start;
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-bottom-left-radius: 4px;
+}
+.balao.digitando {
+  color: var(--tx2);
+  font-style: italic;
+}
+.atalhos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  white-space: normal;
+}
+.atalhos button {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font: 600 14px system-ui;
+  color: var(--lk);
+  background: var(--sec-l);
+  border: 0;
+  border-radius: 99px;
+  padding: 7px 8px 7px 12px;
+  cursor: pointer;
+}
+.atalhos .ic {
+  width: 16px;
+  height: 16px;
+}
+.fontes {
+  color: var(--tx2);
+  font-size: 12px;
+  white-space: normal;
+}
+.chat-rodape {
+  position: sticky;
+  bottom: -16px;
+  margin: auto -16px -16px;
+  padding: 10px 16px 12px;
+  background: var(--bg);
+  border-top: 1px solid var(--bd);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.chat-rodape .mut {
+  font-size: 12px;
+  text-align: center;
+}
+.chat-envio {
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 8px;
+}
+.chat-envio textarea {
+  resize: none;
+  min-height: 46px;
+  max-height: 140px;
+  field-sizing: content;
+}
+.chat-envio button {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 12px;
+  background: var(--pri);
+  color: #fff;
+  cursor: pointer;
+}
+.chat-envio button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

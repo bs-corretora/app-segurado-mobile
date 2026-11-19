@@ -42,6 +42,13 @@ const P = {
     </>
   ),
   close: <path d="M6 6l12 12M18 6L6 18" />,
+  send: <path d="M4 12l16-8-6 16-3-7z" />,
+  chat: (
+    <>
+      <path d="M4 5h16v11H9l-5 4z" />
+      <path d="M8 9h8M8 12h5" />
+    </>
+  ),
 };
 
 export type NomeIcone = keyof typeof P;

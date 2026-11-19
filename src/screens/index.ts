@@ -24,6 +24,7 @@ import { Perfil } from './conta/Perfil';
 import { Dados } from './conta/Dados';
 import { Ajuda } from './conta/Ajuda';
 import { Instalar } from './conta/Instalar';
+import { Assistente } from './assistente/Assistente';
 
 export const SCREENS: Record<string, ComponentType<{ arg?: string }>> = {
   abrindo: Abrindo,
@@ -51,4 +52,5 @@ export const SCREENS: Record<string, ComponentType<{ arg?: string }>> = {
   dados: Dados,
   ajuda: Ajuda,
   instalar: Instalar,
+  assistente: Assistente,
 };
