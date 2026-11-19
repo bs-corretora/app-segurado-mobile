@@ -1,8 +1,8 @@
-import { useNav } from '../nav'
-import { POL } from '../data'
-import { Card, Icon, PolicyCard } from '../ui'
+import { useNav } from '../../app/nav'
+import { POL } from '../../constants/data'
+import { Card, Icone, CartaoApolice } from '../../components'
 
-export function Home() {
+export function Inicio() {
   const { go, bday, setBday } = useNav()
   const atalhos = [['assist', 'phone', 'Assistência 24h'], ['sinistro', 'alert', 'Sinistro'], ['cotacao', 'quote', 'Cotação']]
   return (
@@ -15,11 +15,11 @@ export function Home() {
       )}
       <div className="card hero"><div className="big">3 anos e 4 meses</div><small>como segurado da BS Seguros</small></div>
       <h2>Minhas apólices ativas</h2>
-      {POL.filter((p) => p.s === 'ATIVA').map((p) => <PolicyCard key={p.id} p={p} />)}
+      {POL.filter((p) => p.s === 'ATIVA').map((p) => <CartaoApolice key={p.id} p={p} />)}
       <button className="btn sec" onClick={() => go('apolices')}>Ver todas as apólices</button>
       <h2>Acesso rápido</h2>
       <div className="grid3">
-        {atalhos.map(([t, i, l]) => <Card key={t} className="sh" onClick={() => go(t)}><Icon n={i} />{l}</Card>)}
+        {atalhos.map(([t, i, l]) => <Card key={t} className="sh" onClick={() => go(t)}><Icone n={i} />{l}</Card>)}
       </div>
       <div className="card ban row">
         <div><b>Indique amigos</b><div className="mut">Convide conhecidos para cotar na BS Seguros.</div></div>

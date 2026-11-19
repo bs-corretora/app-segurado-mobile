@@ -4,8 +4,8 @@ import { createElement as h } from 'react'
 import { renderToString } from 'react-dom/server'
 
 const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' })
-const { Shell } = await vite.ssrLoadModule('/src/App.jsx')
-const { NavProvider } = await vite.ssrLoadModule('/src/nav.jsx')
+const { Shell } = await vite.ssrLoadModule('/src/app/App.jsx')
+const { NavProvider } = await vite.ssrLoadModule('/src/app/nav.jsx')
 const { SCREENS } = await vite.ssrLoadModule('/src/screens/index.js')
 
 const args = { apolice: [0, 1, 2], pdf: [0, 1, 2], 'cot-form': ['Auto', 'Residencial', 'Vida', 'Empresarial'], 'cot-det': [0, 1] }

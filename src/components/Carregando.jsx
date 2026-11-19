@@ -1,0 +1,1 @@
+export const Carregando = () => <div className="carregando" role="status" aria-busy="true">Carregando…</div>

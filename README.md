@@ -12,10 +12,17 @@ npm test         # renderiza todas as telas e falha se alguma quebrar
 ```
 
 ## Estrutura
-- `src/nav.jsx` — navegação por pilha (abas e telas internas)
-- `src/data.js` — dados fictícios, títulos, status e tipos de cobertura
-- `src/ui.jsx` — ícones e componentes (Card, Field, Select, Tag, Contact…)
-- `src/screens/` — Auth, Home, Policies, Claims, Quotes, More
+- `src/app/` — App.tsx, main.tsx, nav.tsx, sessao.tsx (núcleo da aplicação)
+- `src/components/` — componentes de UI reutilizáveis (Card, Campo, Seleção, Selo, Ícone, Contato, CartãoApolice…)
+- `src/constants/` — rotulos.ts (títulos, status, ícones de abas)
+- `src/utils/` — formatos.ts (helpers de formatação)
+- `src/screens/` — telas organizadas por domínio:
+  - `auth/` — Login, Esqueci, EsqueciOk, Cadastro, Boas
+  - `inicio/` — Inicio (Home)
+  - `apolices/` — Apolices, Apolice, Pdf
+  - `sinistros/` — Assist, Sinistro, SinNovo, SinOk, SinDet
+  - `cotacoes/` — Cotacao, CotProd, CotForm, CotDet
+  - `conta/` — Indicar, Notif, Config, Perfil, Dados, Ajuda
 - `src/styles.css` — tokens de cor e estilos
 
 ## Pendências de confirmação com a BS Seguros

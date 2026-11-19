@@ -1,8 +1,8 @@
 import { NavProvider, useNav, TABS, OUT } from './nav'
-import { SCREENS } from './screens'
-import { TL, TI, TT } from './data'
-import { Icon } from './ui'
-import bBranco from './assets/b-branco.png'
+import { SCREENS } from '../screens'
+import { TL, TI, TT } from '../constants/data'
+import { Icone } from '../components'
+import bBranco from '../assets/b-branco.png'
 
 const LG = <img className="lg" src={bBranco} alt="BS Seguros" />
 
@@ -20,12 +20,12 @@ function Header() {
         )
       ) : (
         <>
-          <button onClick={back} aria-label="Voltar"><Icon n="back" /></button>
+          <button onClick={back} aria-label="Voltar"><Icone n="back" /></button>
           {n.startsWith('cot') && LG}
           <b className="t">{TT[n]}</b>
         </>
       )}
-      <button className="bl" onClick={() => go('notif')} aria-label="Notificações"><Icon n="bell" /><i>2</i></button>
+      <button className="bl" onClick={() => go('notif')} aria-label="Notificações"><Icone n="bell" /><i>2</i></button>
     </header>
   )
 }
@@ -36,7 +36,7 @@ function TabBar() {
     <nav>
       {TABS.map((t) => (
         <button key={t} className={t === cur[0] ? 'on' : ''} onClick={() => go(t)}>
-          <Icon n={TI[t]} />{TL[t]}
+          <Icone n={TI[t]} />{TL[t]}
         </button>
       ))}
     </nav>
