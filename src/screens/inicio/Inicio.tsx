@@ -101,6 +101,15 @@ export function Inicio() {
       </div>
       <div className="card ban row">
         <div>
+          <b>Tire suas dúvidas</b>
+          <div className="mut">Pergunte ao assistente sobre apólices, sinistros e cotações.</div>
+        </div>
+        <button className="btn auto" onClick={() => go('assistente')}>
+          Perguntar
+        </button>
+      </div>
+      <div className="card ban row">
+        <div>
           <b>Indique amigos</b>
           <div className="mut">Convide conhecidos para cotar na BS Seguros.</div>
         </div>

@@ -12,12 +12,14 @@ import type {
   Indicacao,
   LinkIndicacao,
   LinkPdf,
+  MensagemAssistente,
   NovaCotacao,
   NovoCadastro,
   NovoSinistro,
   Notificacao,
   Pagina,
   Perfil,
+  RespostaAssistente,
   RespostaCadastro,
   RespostaLogin,
   Sinistro,
@@ -114,3 +116,12 @@ export const listarNotificacoes = (p: Paginacao & { nao_lidas?: boolean } = {}) 
   api<Pagina<Notificacao>>(`/notificacoes${consulta(p)}`);
 export const marcarNotificacaoLida = (id: Id) =>
   api<Notificacao>(`/notificacoes/${id}/lida`, { method: 'PATCH' });
+
+// ----- Assistente ------------------------------------------------------------
+
+/**
+ * Manda o histórico recente (1 a 10 mensagens, a última da pessoa) e recebe a resposta.
+ * 429: muitas perguntas seguidas; 503: assistente fora do ar.
+ */
+export const perguntarAssistente = (mensagens: MensagemAssistente[]) =>
+  api<RespostaAssistente>('/assistente', { method: 'POST', corpo: { mensagens } });

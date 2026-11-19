@@ -43,6 +43,7 @@ export const TITULO: Record<string, string> = {
   dados: 'Dados cadastrais',
   ajuda: 'Ajuda',
   instalar: 'Instalar o app',
+  assistente: 'Assistente',
 };
 
 export type Status = StatusApolice | StatusSinistro | StatusCotacao | StatusIndicacao;

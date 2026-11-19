@@ -208,3 +208,22 @@ export type Notificacao = {
   lida_em: DataHora | null;
   criado_em: DataHora;
 };
+
+// ----- Assistente ------------------------------------------------------------
+
+export type PapelMensagem = 'usuario' | 'assistente';
+
+/** Uma mensagem do histórico enviado ao assistente (texto de 1 a 4000 caracteres). */
+export type MensagemAssistente = { papel: PapelMensagem; texto: string };
+
+/** Trecho da base de conhecimento usado na resposta. */
+export type FonteAssistente = { id: string; titulo: string };
+
+/** Botão sugerido na resposta. `tela` é um caminho no estilo web (`/apolices/:id`). */
+export type AtalhoAssistente = { rotulo: string; tela: string; id?: string };
+
+export type RespostaAssistente = {
+  resposta: string;
+  fontes: FonteAssistente[];
+  atalhos: AtalhoAssistente[];
+};

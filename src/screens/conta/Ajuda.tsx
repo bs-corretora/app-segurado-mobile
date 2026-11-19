@@ -1,6 +1,7 @@
-import { ComDados, Contato, Vazio } from '../../components';
+import { Card, ComDados, Contato, Icon, Vazio } from '../../components';
 import { listarContatos } from '../../api';
 import { useApi } from '../../hooks/useApi';
+import { useNav } from '../../app/nav';
 
 const DUVIDAS: [pergunta: string, resposta: string][] = [
   [
@@ -22,9 +23,17 @@ const DUVIDAS: [pergunta: string, resposta: string][] = [
 ];
 
 export function Ajuda() {
+  const { go } = useNav();
   const contatos = useApi(() => listarContatos('SINISTRO'));
   return (
     <>
+      <Card className="row" onClick={() => go('assistente')}>
+        <div>
+          <b>Pergunte ao assistente</b>
+          <div className="mut">Tire dúvidas sobre suas apólices, sinistros e cotações.</div>
+        </div>
+        <Icon n="chat" />
+      </Card>
       <h2 className="m0">Dúvidas frequentes</h2>
       {DUVIDAS.map(([p, r]) => (
         <details key={p} className="card">

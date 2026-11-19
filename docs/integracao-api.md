@@ -150,6 +150,7 @@ Campos que a API espera num formato que a tela mostra diferente:
 | Notificações                           | `listarNotificacoes`, `marcarNotificacaoLida`                          | #9    |
 | Indicações                             | `buscarLinkIndicacao`, `listarIndicacoes`                              | #9    |
 | Perfil, dados, senha                   | `buscarPerfil`, `atualizarPerfil`, `trocarSenha`                       | #9    |
+| Assistente                             | `perguntarAssistente`                                                  | #19   |
 
 Detalhes que mordem:
 
@@ -160,3 +161,7 @@ Detalhes que mordem:
   (`document.visibilityState === 'visible'`).
 - **Esqueci a senha:** o e-mail leva para uma página da própria API. O app só pede o link.
 - **`valor_estimado`** da cotação pode vir como texto: `Number(c.valor_estimado)`.
+- **Assistente:** manda as últimas 10 mensagens a cada pergunta (a última da pessoa). Os
+  `atalhos` chegam como caminho web (`/apolices/:id`) e viram tela do app em
+  `src/utils/destinoAtalho.ts`; caminho desconhecido esconde o botão. `429` e `503` têm mensagem
+  própria.
