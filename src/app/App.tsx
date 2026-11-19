@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
-import { quandoSessaoAcabar } from './api';
+import { quandoSessaoAcabar } from '../api';
 import { NavProvider, OUT, TABS, ehAba, useNav } from './nav';
 import type { Rota } from './nav';
 import { SessaoProvider, useSessao } from './sessao';
-import { SCREENS } from './screens';
-import { ICONE_ABA, ROTULO_ABA, TITULO } from './rotulos';
-import { Avatar, Icon } from './ui';
-import { useOnline } from './hooks/useOnline';
-import { atualizarApp, useNovaVersao } from './pwa/atualizacao';
-import bBranco from './assets/b-branco.png';
+import { SCREENS } from '../screens';
+import { ICONE_ABA, ROTULO_ABA, TITULO } from '../constants/rotulos';
+import { Avatar, Icon } from '../components';
+import { useOnline } from '../hooks/useOnline';
+import { atualizarApp, useNovaVersao } from '../pwa/atualizacao';
+import bBranco from '../assets/b-branco.png';
 
 /** Telas sem cabeçalho nem abas. */
 const SEM_CABECALHO: readonly string[] = [...OUT, 'boas'];

@@ -33,22 +33,21 @@ Para apontar para uma API local, crie `.env.local` com
 
 ## Estrutura
 
-| Caminho             | O que tem                                                                   |
-| ------------------- | --------------------------------------------------------------------------- |
-| `src/api/`          | cliente da API, tipos das respostas e uma função por rota                   |
-| `src/screens/`      | telas: Auth, Home, Policies, Claims, Quotes, More                           |
-| `src/nav.tsx`       | navegação por pilha (abas, telas internas e botão voltar do aparelho)       |
-| `src/sessao.tsx`    | resumo da pessoa logada (nome, sininho, apólices ativas)                    |
-| `src/hooks/`        | `useApi`/`usePaginado` (carregando, erro, vazio) e `useEnvio` (formulários) |
-| `src/ui.tsx`        | ícones e componentes (Card, Campo, Selecao, Aviso, ComDados, Contato…)      |
-| `src/formatos.ts`   | datas, moeda, máscaras de CPF e telefone, mensagens de erro                 |
-| `src/rotulos.ts`    | texto de cada código da API (status, produto, tipo de sinistro…)            |
-| `src/pwa/`          | instalação na tela inicial e aviso de versão nova                           |
-| `pwa/`              | modelo do service worker e o plugin do Vite que gera o `/sw.js` no build    |
-| `public/`           | manifesto e ícones do PWA                                                   |
-| `src/styles.css`    | tokens de cor e estilos                                                     |
-| `tests/`            | testes unitários (Vitest): cliente da API, formatos, navegação e PWA        |
-| `scripts/smoke.mjs` | teste de fumaça: renderiza todas as telas                                   |
+| Caminho             | O que tem                                                                                                                                     |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/api/`          | cliente da API, tipos das respostas e uma função por rota                                                                                     |
+| `src/app/`          | `App.tsx`, `main.tsx`, `nav.tsx` (navegação por pilha: abas, telas internas e botão voltar) e `sessao.tsx` (resumo da pessoa logada)          |
+| `src/screens/`      | uma tela por arquivo, por assunto: `auth/`, `inicio/`, `apolices/`, `sinistros/`, `cotacoes/`, `conta/`; `index.ts` liga cada rota à sua tela |
+| `src/components/`   | um componente por arquivo (Card, Campo, Selecao, Aviso, ComDados, Contato, CartaoApolice…) e o `index.ts` que reexporta                       |
+| `src/constants/`    | `rotulos.ts`: texto de cada código da API (status, produto, tipo de sinistro…)                                                                |
+| `src/utils/`        | `formatos.ts` (datas, moeda, máscaras de CPF e telefone, mensagens de erro) e `rotuloApolice.ts`                                              |
+| `src/hooks/`        | `useApi`/`usePaginado` (carregando, erro, vazio) e `useEnvio` (formulários)                                                                   |
+| `src/pwa/`          | instalação na tela inicial e aviso de versão nova                                                                                             |
+| `pwa/`              | modelo do service worker e o plugin do Vite que gera o `/sw.js` no build                                                                      |
+| `public/`           | manifesto e ícones do PWA                                                                                                                     |
+| `src/styles.css`    | tokens de cor e estilos                                                                                                                       |
+| `tests/`            | testes unitários (Vitest): cliente da API, formatos, navegação e PWA                                                                          |
+| `scripts/smoke.mjs` | teste de fumaça: renderiza todas as telas                                                                                                     |
 
 ## PWA
 

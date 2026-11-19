@@ -14,7 +14,7 @@ import {
   telefone,
   tempoDeCasa,
   valorCampoCotacao,
-} from '../src/formatos';
+} from '../src/utils/formatos';
 
 // O Intl separa "R$" do número com espaço sem quebra (U+00A0); \s também o reconhece.
 const semNbsp = (s: string) => s.replace(/\s/g, ' ');

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { navegar, substituir, temOndeVoltar, voltar, type EstadoNav } from '../src/nav';
+import { navegar, substituir, temOndeVoltar, voltar, type EstadoNav } from '../src/app/nav';
 
 const inicio: EstadoNav = { cur: ['home'], pilha: [] };
 

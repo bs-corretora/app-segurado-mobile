@@ -1,6 +1,6 @@
 // Conversões entre o formato da API e o que a tela mostra.
-import { ErroApi } from './api';
-import type { DadosCotacao, Data, DataHora } from './api';
+import { ErroApi } from '../api';
+import type { DadosCotacao, Data, DataHora } from '../api';
 
 /** Deixa só os dígitos. */
 export const soDigitos = (s: string): string => s.replace(/\D/g, '');

@@ -1,10 +1,29 @@
 import type { ComponentType } from 'react';
-import { Abrindo, Login, Esqueci, EsqueciOk, Cadastro, Boas } from './Auth';
-import { Home } from './Home';
-import { Apolices, Apolice } from './Policies';
-import { Assist, Sinistro, SinNovo, SinOk, SinDet } from './Claims';
-import { Cotacao, CotProd, CotForm, CotDet } from './Quotes';
-import { Indicar, Notif, Config, Perfil, Dados, Ajuda, Instalar } from './More';
+import { Abrindo } from './auth/Abrindo';
+import { Login } from './auth/Login';
+import { Esqueci } from './auth/Esqueci';
+import { EsqueciOk } from './auth/EsqueciOk';
+import { Cadastro } from './auth/Cadastro';
+import { Boas } from './auth/Boas';
+import { Inicio } from './inicio/Inicio';
+import { Apolices } from './apolices/Apolices';
+import { Apolice } from './apolices/Apolice';
+import { Assist } from './sinistros/Assist';
+import { Sinistro } from './sinistros/Sinistro';
+import { SinNovo } from './sinistros/SinNovo';
+import { SinOk } from './sinistros/SinOk';
+import { SinDet } from './sinistros/SinDet';
+import { Cotacao } from './cotacoes/Cotacao';
+import { CotProd } from './cotacoes/CotProd';
+import { CotForm } from './cotacoes/CotForm';
+import { CotDet } from './cotacoes/CotDet';
+import { Indicar } from './conta/Indicar';
+import { Notif } from './conta/Notif';
+import { Config } from './conta/Config';
+import { Perfil } from './conta/Perfil';
+import { Dados } from './conta/Dados';
+import { Ajuda } from './conta/Ajuda';
+import { Instalar } from './conta/Instalar';
 
 export const SCREENS: Record<string, ComponentType<{ arg?: string }>> = {
   abrindo: Abrindo,
@@ -13,7 +32,7 @@ export const SCREENS: Record<string, ComponentType<{ arg?: string }>> = {
   esqueciok: EsqueciOk,
   cadastro: Cadastro,
   boas: Boas,
-  home: Home,
+  home: Inicio,
   apolices: Apolices,
   apolice: Apolice,
   assist: Assist,

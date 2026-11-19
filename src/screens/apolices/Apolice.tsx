@@ -1,30 +1,10 @@
 import { useState } from 'react';
-import { buscarApolice, linkPdfApolice, listarApolices } from '../api';
-import { usePaginado, useApi } from '../hooks/useApi';
-import { useEnvio } from '../hooks/useEnvio';
-import { data, moeda } from '../formatos';
-import { PRODUTO } from '../rotulos';
-import { Aviso, Botao, CartaoApolice, ComDados, KV, MaisItens, Tag, Vazio } from '../ui';
-
-export function Apolices() {
-  const r = usePaginado(listarApolices);
-  return (
-    <ComDados r={r}>
-      {(itens) =>
-        itens.length ? (
-          <>
-            {itens.map((a) => (
-              <CartaoApolice key={a.id} a={a} />
-            ))}
-            <MaisItens r={r} />
-          </>
-        ) : (
-          <Vazio texto="Você ainda não tem apólices na BS Seguros." />
-        )
-      }
-    </ComDados>
-  );
-}
+import { linkPdfApolice, buscarApolice } from '../../api';
+import { Aviso, Botao, ComDados, KV, Tag } from '../../components';
+import { PRODUTO } from '../../constants/rotulos';
+import { data, moeda } from '../../utils/formatos';
+import { useApi } from '../../hooks/useApi';
+import { useEnvio } from '../../hooks/useEnvio';
 
 /**
  * Abre o PDF da apólice. O link vale 60 segundos, então é pedido na hora do toque.
