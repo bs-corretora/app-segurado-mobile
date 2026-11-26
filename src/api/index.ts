@@ -48,11 +48,23 @@ export async function entrar(email: string, senha: string): Promise<RespostaLogi
   return r;
 }
 
-export async function cadastrar(dados: NovoCadastro): Promise<RespostaCadastro> {
-  const r = await api<RespostaCadastro>('/auth/cadastro', { method: 'POST', corpo: dados });
+/** 201 sem sessão: a pessoa precisa confirmar o e-mail com o código enviado por e-mail (`confirmarEmail`). */
+export const cadastrar = (dados: NovoCadastro) =>
+  api<RespostaCadastro>('/auth/cadastro', { method: 'POST', corpo: dados });
+
+/** Código de 6 dígitos certo: devolve a sessão (igual ao login). 400 com `campos.codigo` se errado ou vencido. */
+export async function confirmarEmail(email: string, codigo: string): Promise<RespostaLogin> {
+  const r = await api<RespostaLogin>('/auth/confirmar-email', {
+    method: 'POST',
+    corpo: { email, codigo },
+  });
   guardarTokens(r);
   return r;
 }
+
+/** Responde 204 sempre, exista ou não a conta. 429 se pedir demais. */
+export const reenviarCodigo = (email: string) =>
+  api<null>('/auth/reenviar-codigo', { method: 'POST', corpo: { email } });
 
 /** Responde 204 sempre, exista ou não a conta. */
 export function pedirNovaSenha(email: string): Promise<null> {
