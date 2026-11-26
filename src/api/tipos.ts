@@ -34,6 +34,8 @@ export type CorpoErro = {
     | 'CONFLITO'
     | 'LIMITE_EXCEDIDO'
     | 'INDISPONIVEL'
+    /** 403 no login de conta que ainda não confirmou o e-mail. */
+    | 'EMAIL_NAO_CONFIRMADO'
     | string;
   mensagem: string;
   /** Nos erros 400: mensagem por campo, ex.: `{ cpf: 'CPF inválido' }`. */
@@ -52,7 +54,8 @@ export type Tokens = {
 };
 
 export type RespostaLogin = Tokens & { id: Id; email: string };
-export type RespostaCadastro = Tokens & { id: Id; apolices_vinculadas: number };
+/** O cadastro não inicia sessão: o código de 6 dígitos chega por e-mail e vai em `confirmarEmail`. */
+export type RespostaCadastro = { id: Id; apolices_vinculadas: number; confirmar_email: true };
 
 export type NovoCadastro = {
   nome: string;

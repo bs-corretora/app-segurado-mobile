@@ -117,7 +117,7 @@ describe('rotas da API', () => {
     expect(chamadas[3]!.corpo).toEqual({ senha_atual: 'antiga123', nova_senha: 'nova12345' });
   });
 
-  it('Base: login e cadastro guardam a sessão; sair apaga mesmo se a API falhar', async () => {
+  it('Base: login guarda a sessão, sair apaga mesmo se a API falhar e cadastro não abre sessão', async () => {
     const api = await carregar();
     await api.entrar('ana@bs.com', 'segredo123');
     expect(api.temSessao()).toBe(true);
@@ -136,7 +136,8 @@ describe('rotas da API', () => {
       aceita_marketing: false,
     });
     expect(chamadas.at(-1)!.corpo).toMatchObject({ aceita_marketing: false });
-    expect(api.temSessao()).toBe(true);
+    // Com a confirmação de e-mail (#34), o cadastro não abre sessão: ela vem depois do código.
+    expect(api.temSessao()).toBe(false);
     status = 204;
     await api.pedirNovaSenha('ana@bs.com');
     expect(chamadas.map((c) => `${c.metodo} ${c.url}`)).toEqual([

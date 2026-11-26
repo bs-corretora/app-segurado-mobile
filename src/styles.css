@@ -1185,6 +1185,27 @@ label .req {
   cursor: default;
 }
 
+/* ----- Confirmação de e-mail ---------------------------------------------- */
+.corpo {
+  font-size: 15px;
+  color: var(--tx2);
+  margin: 0 0 8px;
+}
+.quebra {
+  color: var(--tx);
+  overflow-wrap: anywhere;
+}
+.codigo input {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.lk:disabled {
+  color: var(--tx2);
+  cursor: default;
+}
 .tl {
   border-left: 2px solid var(--bd);
   margin-left: 6px;

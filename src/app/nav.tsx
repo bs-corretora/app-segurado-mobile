@@ -12,7 +12,14 @@ import type { ReactNode } from 'react';
 export const TABS = ['home', 'cotacao', 'sinistro', 'assist', 'config'] as const;
 export type Aba = (typeof TABS)[number];
 /** Telas fora da sessão: sem cabeçalho nem abas. */
-export const OUT = ['abrindo', 'login', 'cadastro', 'esqueci', 'esqueciok'] as const;
+export const OUT = [
+  'abrindo',
+  'login',
+  'cadastro',
+  'esqueci',
+  'esqueciok',
+  'confirmar-email',
+] as const;
 
 export const ehAba = (n: string): n is Aba => (TABS as readonly string[]).includes(n);
 export const ehFora = (n: string): boolean => (OUT as readonly string[]).includes(n);

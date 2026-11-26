@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Aviso, AvisoDemora, Botao, Campo, Logo } from '../../components';
-import { entrar } from '../../api';
+import { ErroApi, entrar, reenviarCodigo } from '../../api';
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
 import { useSessao } from '../../app/sessao';
+import { guardarPendente, limparPendente } from '../../utils/codigoEmail';
 import { validadoresPorTipo, validarTudo } from '../../utils/validacao';
 
 export function Login() {
@@ -17,7 +18,17 @@ export function Login() {
   const aoEnviar = async (e: FormEvent) => {
     e.preventDefault();
     const r = await envio.enviar(
-      () => entrar(email.trim(), senha),
+      async () => {
+        try {
+          await entrar(email.trim(), senha);
+          return 'entrou' as const;
+        } catch (e) {
+          if (!(e instanceof ErroApi) || e.erro !== 'EMAIL_NAO_CONFIRMADO') throw e;
+          // Conta criada mas sem confirmar: manda um código novo (se falhar, a tela oferece reenviar).
+          await reenviarCodigo(email.trim()).catch(() => null);
+          return 'confirmar' as const;
+        }
+      },
       () =>
         validarTudo({
           email: [email, validadoresPorTipo.email],
@@ -25,6 +36,12 @@ export function Login() {
         }),
     );
     if (!r) return;
+    if (r === 'confirmar') {
+      guardarPendente(email.trim(), false);
+      go('confirmar-email', email.trim());
+      return;
+    }
+    limparPendente();
     await atualizar();
     go('home');
   };

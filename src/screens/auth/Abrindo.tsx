@@ -3,6 +3,7 @@ import { Aviso, AvisoDemora, Botao, Carregando, Logo } from '../../components';
 import { temSessao } from '../../api';
 import { useNav } from '../../app/nav';
 import { useSessao } from '../../app/sessao';
+import { lerPendente } from '../../utils/codigoEmail';
 
 /** Primeira tela: com token guardado, confere se a sessão ainda vale. */
 export function Abrindo() {
@@ -14,7 +15,10 @@ export function Abrindo() {
 
   useEffect(() => {
     if (!temSessao()) {
-      go('login');
+      // Atualizou a página na tela do código: volta para ela em vez de ir ao login.
+      const pendente = lerPendente();
+      if (pendente) go('confirmar-email', pendente.email);
+      else go('login');
       return;
     }
     let ativo = true;

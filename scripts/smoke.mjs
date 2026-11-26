@@ -30,6 +30,7 @@ const args = {
   'sin-det': [ID],
   'cot-form': [...PRODUTOS, 'INEXISTENTE'],
   'cot-det': [ID],
+  'confirmar-email': ['maria@exemplo.com'],
 };
 let total = 0;
 for (const name of Object.keys(SCREENS)) {
