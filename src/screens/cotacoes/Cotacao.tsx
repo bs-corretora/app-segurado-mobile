@@ -9,32 +9,22 @@ import { usePaginado } from '../../hooks/useApi';
 
 function ResumoCotacao({ c }: { c: CotacaoApi }) {
   const cobertura = c.dados?.cobertura;
-  const partes = [
-    MOTIVO[c.motivo],
-    typeof cobertura === 'string' ? `Cobertura: ${cobertura}` : null,
-    data(c.criado_em),
-  ]
-    .filter(Boolean)
-    .join(' · ');
-
-  // Substitui "Cobertura: X" por versão com tooltip
-  const regex = /Cobertura: ([^·]+)/;
-  const match = partes.match(regex);
-
-  if (match) {
-    const [antes, depois] = partes.split(regex);
-    return (
-      <>
-        {antes}
-        <span className="tooltip" data-tooltip={GLOSSARIO.cobertura}>
-          Cobertura
-        </span>
-        : {match[1]}
-        {depois}
-      </>
-    );
-  }
-  return <>{partes}</>;
+  return (
+    <>
+      {MOTIVO[c.motivo]}
+      {typeof cobertura === 'string' && (
+        <>
+          {' · '}
+          <span className="tooltip" data-tooltip={GLOSSARIO.cobertura}>
+            Cobertura
+          </span>
+          : {cobertura}
+        </>
+      )}
+      {' · '}
+      {data(c.criado_em)}
+    </>
+  );
 }
 
 export function Cotacao() {
