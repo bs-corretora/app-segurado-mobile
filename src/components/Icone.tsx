@@ -56,7 +56,7 @@ const P: Record<NomeIcone, ReactNode> = {
   ),
   back: <path d="M15 5l-7 7 7 7" />,
   next: <path d="M9 5l7 7-7 7" />,
-  shield: <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-9V6z" />,
+  shield: <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" />,
   download: (
     <>
       <path d="M12 4v11M7 10l5 5 5-5" />
