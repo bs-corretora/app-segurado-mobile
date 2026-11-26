@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { ComDados, Aviso, Botao, Caixa, Campo } from '../../components';
+import { ComDados, Aviso, Botao, Caixa, Campo, KV } from '../../components';
 import { buscarPerfil, atualizarPerfil, trocarSenha } from '../../api';
 import type { Perfil as PerfilApi } from '../../api';
 import { useApi } from '../../hooks/useApi';
@@ -44,18 +44,9 @@ function FormDados({ perfil }: { perfil: PerfilApi }) {
           * obrigatório
         </p>
         <div className="card full-width">
-          <div className="kv-row">
-            <span>Nome</span>
-            <b>{perfil.nome}</b>
-          </div>
-          <div className="kv-row">
-            <span>CPF</span>
-            <b>{mascaraCpf(perfil.cpf)}</b>
-          </div>
-          <div className="kv-row">
-            <span>E-mail</span>
-            <b>{perfil.email}</b>
-          </div>
+          <KV k="Nome" v={perfil.nome} />
+          <KV k="CPF" v={mascaraCpf(perfil.cpf)} />
+          <KV k="E-mail" v={perfil.email} />
         </div>
         <p className="mut">Para mudar nome, CPF ou e-mail, fale com a BS Seguros.</p>
         <Campo
@@ -145,7 +136,7 @@ function FormSenha() {
           onBlur={setAtual}
           erro={envio.campos.senha_atual}
           required
-          validar={validadoresPorTipo.senha}
+          validar={validadoresPorTipo.senhaAtual}
         />
         <Campo
           label="Nova senha (mínimo 8 caracteres)"

@@ -143,6 +143,8 @@ export const validadoresPorTipo = {
   data: compor(obrigatorio, data),
   dataNaoFutura: compor(obrigatorio, dataNaoFutura),
   senha: compor(obrigatorio, senhaMin8),
+  /** Login e senha atual: só exige preenchido (contas antigas podem ter senha mais curta). */
+  senhaAtual: (valor: string) => (valor ? undefined : 'Informe a senha.'),
   textoCurto: compor(obrigatorio, textoLivre(5, 200)),
   textoLongo: compor(obrigatorio, textoLivre(10, 2000)),
 } as const;

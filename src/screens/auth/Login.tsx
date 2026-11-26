@@ -59,7 +59,7 @@ export function Login() {
           onBlur={setSenha}
           erro={envio.campos.senha}
           required
-          validar={validadoresPorTipo.senha}
+          validar={validadoresPorTipo.senhaAtual}
         />
         {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
         <AvisoDemora ativo={envio.demorando} />

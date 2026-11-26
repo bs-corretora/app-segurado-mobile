@@ -721,7 +721,8 @@ textarea:disabled {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
-  .form-grid > .full-width {
+  .form-grid > .full-width,
+  .form-grid > :not(.f) {
     grid-column: 1 / -1;
   }
 }
@@ -737,16 +738,10 @@ textarea:disabled {
 }
 
 .legend-obrigatorio {
-  display: none;
-  font-size: 12px;
+  margin: 0;
+  font-size: 15px;
   color: var(--tx2);
-  margin-bottom: 16px;
   padding-left: 2px;
-}
-@media (min-width: 1024px) {
-  .legend-obrigatorio {
-    display: block;
-  }
 }
 
 label .req {
