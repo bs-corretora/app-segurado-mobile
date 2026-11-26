@@ -749,6 +749,11 @@ textarea:disabled {
   .grid-2col {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* Botão solto na tela (fora de formulário) não estica nos 1200px do conteúdo. */
+  main > .btn {
+    align-self: flex-start;
+    min-width: 280px;
+  }
 }
 
 .grid-3col {

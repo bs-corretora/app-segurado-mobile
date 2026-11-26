@@ -19,7 +19,13 @@ export function Sinistro() {
     <>
       <h2 className="m0">Contato de sinistro</h2>
       <ComDados r={contatos}>
-        {({ itens }) => itens.map((c) => <Contato key={c.id} contato={c} />)}
+        {({ itens }) => (
+          <div className="grid-2col">
+            {itens.map((c) => (
+              <Contato key={c.id} contato={c} />
+            ))}
+          </div>
+        )}
       </ComDados>
       <Botao onClick={() => go('sin-novo')}>Abrir sinistro</Botao>
       <h2>Meus sinistros</h2>
@@ -27,19 +33,21 @@ export function Sinistro() {
         {(itens) =>
           itens.length ? (
             <>
-              {itens.map((s) => (
-                <Card key={s.id} onClick={() => go('sin-det', s.id)}>
-                  <div className="row">
-                    <b>{s.protocolo}</b>
-                    <Tag s={s.status} />
-                  </div>
-                  <div className="mut">
-                    {[TIPO_SINISTRO[s.tipo], produtoDe(s.apolice_id), data(s.data_ocorrencia)]
-                      .filter(Boolean)
-                      .join(' · ')}
-                  </div>
-                </Card>
-              ))}
+              <div className="grid-2col">
+                {itens.map((s) => (
+                  <Card key={s.id} onClick={() => go('sin-det', s.id)}>
+                    <div className="row">
+                      <b>{s.protocolo}</b>
+                      <Tag s={s.status} />
+                    </div>
+                    <div className="mut">
+                      {[TIPO_SINISTRO[s.tipo], produtoDe(s.apolice_id), data(s.data_ocorrencia)]
+                        .filter(Boolean)
+                        .join(' · ')}
+                    </div>
+                  </Card>
+                ))}
+              </div>
               <MaisItens r={r} />
             </>
           ) : (
