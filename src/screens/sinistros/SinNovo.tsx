@@ -9,6 +9,7 @@ import { rotuloApolice } from '../../utils/rotuloApolice';
 import { useApi } from '../../hooks/useApi';
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
+import { validadoresPorTipo, compor, obrigatorio, textoLivre } from '../../utils/validacao';
 
 export function SinNovo() {
   const { go } = useNav();
@@ -66,48 +67,67 @@ export function SinNovo() {
         };
 
         return (
-          <form onSubmit={aoEnviar} noValidate>
-            <Selecao
-              label="Apólice"
-              value={apolice_id}
-              onChange={muda('apolice_id')}
-              opcoes={ativas.map((a) => [a.id, rotuloApolice(a)] as const)}
-              erro={envio.campos.apolice_id}
-            />
-            <Selecao
-              label="Tipo de sinistro"
-              value={f.tipo}
-              onChange={(v) => muda('tipo')(v as TipoSinistro)}
-              opcoes={Object.entries(TIPO_SINISTRO)}
-              erro={envio.campos.tipo}
-            />
-            <Campo
-              label="Data e hora da ocorrência"
-              type="datetime-local"
-              max={agora}
-              value={f.quando}
-              onChange={muda('quando')}
-              erro={envio.campos.data_ocorrencia}
-            />
-            <Campo
-              label="Local"
-              placeholder="Onde aconteceu"
-              value={f.local}
-              onChange={muda('local')}
-              erro={envio.campos.local}
-            />
-            <AreaTexto
-              label="Descrição"
-              placeholder="Conte o que aconteceu"
-              value={f.descricao}
-              onChange={muda('descricao')}
-              erro={envio.campos.descricao}
-            />
-            {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
-            <Botao type="submit" carregando={envio.enviando}>
-              Abrir sinistro
-            </Botao>
-          </form>
+          <div className="form-container">
+            <form onSubmit={aoEnviar} noValidate className="form-grid">
+              <p className="legend-obrigatorio" aria-hidden="true">* obrigatório</p>
+              <Selecao
+                label="Apólice"
+                value={apolice_id}
+                onChange={muda('apolice_id')}
+                onBlur={muda('apolice_id')}
+                opcoes={ativas.map((a) => [a.id, rotuloApolice(a)] as const)}
+                erro={envio.campos.apolice_id}
+                required
+                validar={obrigatorio}
+              />
+              <Selecao
+                label={<span className="tooltip" data-tooltip="Tipo de evento: Colisão, Roubo ou furto, Incêndio, Dano elétrico ou Outro.">Tipo de sinistro</span>}
+                value={f.tipo}
+                onChange={(v) => muda('tipo')(v as TipoSinistro)}
+                onBlur={(v) => muda('tipo')(v as TipoSinistro)}
+                opcoes={Object.entries(TIPO_SINISTRO)}
+                erro={envio.campos.tipo}
+                required
+                validar={obrigatorio}
+              />
+              <Campo
+                label={<span className="tooltip" data-tooltip="Data e hora em que o sinistro ocorreu.">Data e hora da ocorrência</span>}
+                type="datetime-local"
+                max={agora}
+                value={f.quando}
+                onChange={muda('quando')}
+                onBlur={muda('quando')}
+                erro={envio.campos.data_ocorrencia}
+                required
+                validar={validadoresPorTipo.dataNaoFutura}
+              />
+              <Campo
+                label="Local"
+                placeholder="Onde aconteceu"
+                value={f.local}
+                onChange={muda('local')}
+                onBlur={muda('local')}
+                erro={envio.campos.local}
+                required
+                validar={compor(obrigatorio, textoLivre(3, 200))}
+              />
+              <AreaTexto
+                label="Descrição"
+                placeholder="Conte o que aconteceu"
+                value={f.descricao}
+                onChange={muda('descricao')}
+                onBlur={muda('descricao')}
+                erro={envio.campos.descricao}
+                required
+                validar={compor(obrigatorio, textoLivre(10, 2000))}
+                className="full-width"
+              />
+              {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
+              <Botao type="submit" carregando={envio.enviando} className="full-width">
+                Abrir sinistro
+              </Botao>
+            </form>
+          </div>
         );
       }}
     </ComDados>

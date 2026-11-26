@@ -18,7 +18,7 @@ export function CartaoApolice({ a }: { a: ApoliceResumo }) {
       </div>
       <div className="mut">Nº {a.numero}</div>
       <div className="mut">
-        Vigência {data(a.inicio_vigencia)} a {data(a.fim_vigencia)}
+        <span className="tooltip" data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas.">Vigência</span> {data(a.inicio_vigencia)} a {data(a.fim_vigencia)}
       </div>
     </Card>
   );

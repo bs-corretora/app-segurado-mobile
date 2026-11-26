@@ -4,6 +4,7 @@ import { Aviso, AvisoDemora, Botao, Campo } from '../../components';
 import { pedirNovaSenha } from '../../api';
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
+import { validadoresPorTipo } from '../../utils/validacao';
 
 export function Esqueci() {
   const { go } = useNav();
@@ -23,27 +24,33 @@ export function Esqueci() {
   };
 
   return (
-    <form onSubmit={aoEnviar} noValidate>
-      <h1>Redefinir senha</h1>
-      <p className="mut">Informe seu e-mail e enviaremos um link para criar uma nova senha.</p>
-      <Campo
-        label="E-mail"
-        type="email"
-        placeholder="voce@email.com"
-        autoComplete="email"
-        inputMode="email"
-        value={email}
-        onChange={setEmail}
-        erro={envio.campos.email}
-      />
-      {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
-      <AvisoDemora ativo={envio.demorando} />
-      <Botao type="submit" carregando={envio.enviando}>
-        Enviar link
-      </Botao>
-      <button type="button" className="lk" onClick={() => go('login')}>
-        Voltar ao login
-      </button>
-    </form>
+    <div className="form-container">
+      <form onSubmit={aoEnviar} noValidate className="form-grid">
+        <p className="legend-obrigatorio" aria-hidden="true">* obrigatório</p>
+        <h1>Redefinir senha</h1>
+        <p className="mut">Informe seu e-mail e enviaremos um link para criar uma nova senha.</p>
+        <Campo
+          label="E-mail"
+          type="email"
+          placeholder="voce@email.com"
+          autoComplete="email"
+          inputMode="email"
+          value={email}
+          onChange={setEmail}
+          onBlur={setEmail}
+          erro={envio.campos.email}
+          required
+          validar={validadoresPorTipo.email}
+        />
+        {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
+        <AvisoDemora ativo={envio.demorando} />
+        <Botao type="submit" carregando={envio.enviando} className="full-width">
+          Enviar link
+        </Botao>
+        <button type="button" className="lk full-width" onClick={() => go('login')}>
+          Voltar ao login
+        </button>
+      </form>
+    </div>
   );
 }
