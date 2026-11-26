@@ -23,8 +23,32 @@ export function SinDet({ arg }: { arg?: string }) {
               <Tag s={s.status} />
             </div>
             <KV k="Tipo" v={TIPO_SINISTRO[s.tipo]} />
-            {apolice && <KV k="Apólice" v={rotuloApolice(apolice)} />}
-            <KV k="Ocorrência" v={dataHora(s.data_ocorrencia)} />
+            {apolice && (
+              <KV
+                k={
+                  <span
+                    className="tooltip"
+                    tabIndex={0}
+                    data-tooltip="Apólice vinculada a este sinistro."
+                  >
+                    Apólice
+                  </span>
+                }
+                v={rotuloApolice(apolice)}
+              />
+            )}
+            <KV
+              k={
+                <span
+                  className="tooltip"
+                  tabIndex={0}
+                  data-tooltip="Data e hora em que o sinistro ocorreu."
+                >
+                  Ocorrência
+                </span>
+              }
+              v={dataHora(s.data_ocorrencia)}
+            />
             {s.local && <KV k="Local" v={s.local} />}
             {s.descricao && (
               <div className="col desc">

@@ -6,6 +6,7 @@ import type { Perfil as PerfilApi } from '../../api';
 import { useApi } from '../../hooks/useApi';
 import { mascaraCpf, mascaraTelefone, soDigitos } from '../../utils/formatos';
 import { useEnvio } from '../../hooks/useEnvio';
+import { validadoresPorTipo } from '../../utils/validacao';
 
 export function Dados() {
   const r = useApi(buscarPerfil);
@@ -37,42 +38,58 @@ function FormDados({ perfil }: { perfil: PerfilApi }) {
   };
 
   return (
-    <form onSubmit={aoEnviar} noValidate>
-      <div className="card">
-        <KV k="Nome" v={perfil.nome} />
-        <KV k="CPF" v={mascaraCpf(perfil.cpf)} />
-        <KV k="E-mail" v={perfil.email} />
-      </div>
-      <p className="mut">Para mudar nome, CPF ou e-mail, fale com a BS Seguros.</p>
-      <Campo
-        label="Telefone"
-        type="tel"
-        inputMode="tel"
-        autoComplete="tel-national"
-        placeholder="(00) 00000-0000"
-        value={tel}
-        onChange={(v) => {
-          setSalvou(false);
-          setTel(mascaraTelefone(v));
-        }}
-        erro={envio.campos.telefone}
-      />
-      <Caixa
-        checked={marketing}
-        onChange={(v) => {
-          setSalvou(false);
-          setMarketing(v);
-        }}
-        erro={envio.campos.aceita_marketing}
-      >
-        Receber campanhas e novidades
-      </Caixa>
-      {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
-      {salvou && <Aviso tipo="ok">Dados salvos.</Aviso>}
-      <Botao type="submit" carregando={envio.enviando}>
-        Salvar alterações
-      </Botao>
-    </form>
+    <div className="form-container">
+      <form onSubmit={aoEnviar} noValidate className="form-grid">
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
+        <div className="card full-width">
+          <KV k="Nome" v={perfil.nome} />
+          <KV k="CPF" v={mascaraCpf(perfil.cpf)} />
+          <KV k="E-mail" v={perfil.email} />
+        </div>
+        <p className="mut">Para mudar nome, CPF ou e-mail, fale com a BS Seguros.</p>
+        <Campo
+          label="Telefone"
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel-national"
+          placeholder="(00) 00000-0000"
+          value={tel}
+          onChange={(v) => {
+            setSalvou(false);
+            setTel(mascaraTelefone(v));
+          }}
+          onBlur={(v) => {
+            setSalvou(false);
+            setTel(mascaraTelefone(v));
+          }}
+          erro={envio.campos.telefone}
+          required
+          validar={validadoresPorTipo.telefone}
+        />
+        <Caixa
+          checked={marketing}
+          onChange={(v) => {
+            setSalvou(false);
+            setMarketing(v);
+          }}
+          onBlur={(v) => {
+            setSalvou(false);
+            setMarketing(v);
+          }}
+          erro={envio.campos.aceita_marketing}
+          className="full-width"
+        >
+          Quero receber novidades e atualizações por e-mail e notificação
+        </Caixa>
+        {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
+        {salvou && <Aviso tipo="ok">Dados salvos.</Aviso>}
+        <Botao type="submit" carregando={envio.enviando} className="full-width">
+          Salvar alterações
+        </Botao>
+      </form>
+    </div>
   );
 }
 
@@ -104,29 +121,40 @@ function FormSenha() {
   };
 
   return (
-    <form onSubmit={aoEnviar} noValidate>
-      <h2>Trocar senha</h2>
-      <Campo
-        label="Senha atual"
-        type="password"
-        autoComplete="current-password"
-        value={atual}
-        onChange={setAtual}
-        erro={envio.campos.senha_atual}
-      />
-      <Campo
-        label="Nova senha (mínimo 8 caracteres)"
-        type="password"
-        autoComplete="new-password"
-        value={nova}
-        onChange={setNova}
-        erro={envio.campos.nova_senha}
-      />
-      {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
-      {trocou && <Aviso tipo="ok">Senha alterada.</Aviso>}
-      <Botao type="submit" variante="out" carregando={envio.enviando}>
-        Trocar senha
-      </Botao>
-    </form>
+    <div className="form-container">
+      <form onSubmit={aoEnviar} noValidate className="form-grid">
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
+        <h2>Trocar senha</h2>
+        <Campo
+          label="Senha atual"
+          type="password"
+          autoComplete="current-password"
+          value={atual}
+          onChange={setAtual}
+          onBlur={setAtual}
+          erro={envio.campos.senha_atual}
+          required
+          validar={validadoresPorTipo.senhaAtual}
+        />
+        <Campo
+          label="Nova senha (mínimo 8 caracteres)"
+          type="password"
+          autoComplete="new-password"
+          value={nova}
+          onChange={setNova}
+          onBlur={setNova}
+          erro={envio.campos.nova_senha}
+          required
+          validar={validadoresPorTipo.senha}
+        />
+        {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
+        {trocou && <Aviso tipo="ok">Senha alterada.</Aviso>}
+        <Botao type="submit" variante="out" carregando={envio.enviando} className="full-width">
+          Trocar senha
+        </Botao>
+      </form>
+    </div>
   );
 }

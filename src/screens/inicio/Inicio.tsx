@@ -79,7 +79,11 @@ export function Inicio() {
       </div>
       <h2>Minhas apólices ativas</h2>
       {resumo.apolices_ativas.length ? (
-        resumo.apolices_ativas.map((a) => <CartaoApolice key={a.id} a={a} />)
+        <div className="grid-responsive">
+          {resumo.apolices_ativas.map((a) => (
+            <CartaoApolice key={a.id} a={a} />
+          ))}
+        </div>
       ) : (
         <Vazio texto="Você não tem apólice ativa no momento.">
           <Botao variante="sec" onClick={() => go('cot-prod')}>
@@ -91,7 +95,7 @@ export function Inicio() {
         Ver todas as apólices
       </Botao>
       <h2>Acesso rápido</h2>
-      <div className="grid3">
+      <div className="grid-3col">
         {ATALHOS.map(([t, i, l]) => (
           <Card key={t} className="sh" onClick={() => go(t)}>
             <Icon n={i} />

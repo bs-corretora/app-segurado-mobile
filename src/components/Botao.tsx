@@ -7,6 +7,7 @@ export function Botao({
   type = 'button',
   onClick,
   disabled,
+  className,
 }: {
   children: ReactNode;
   variante?: 'pri' | 'sec' | 'out';
@@ -14,11 +15,12 @@ export function Botao({
   type?: 'button' | 'submit';
   onClick?: () => void;
   disabled?: boolean;
+  className?: string;
 }) {
   return (
     <button
       type={type}
-      className={`btn ${variante === 'pri' ? '' : variante}`}
+      className={`btn ${variante === 'pri' ? '' : variante} ${className ?? ''}`}
       onClick={onClick}
       disabled={disabled || carregando}
       aria-busy={carregando || undefined}

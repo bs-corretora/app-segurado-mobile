@@ -7,6 +7,7 @@ import { AreaTexto, Aviso, Botao, Campo, Selecao } from '../../components';
 import { mascaraTelefone, soDigitos } from '../../utils/formatos';
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
+import { validadoresPorTipo, compor, obrigatorio, textoLivre } from '../../utils/validacao';
 
 const ehProduto = (p: string | undefined): p is Produto => !!p && p in PRODUTO;
 
@@ -61,46 +62,64 @@ export function CotForm({ arg }: { arg?: string }) {
   };
 
   return (
-    <form onSubmit={aoEnviar} noValidate>
-      <div className="card">
-        <span className="mut">Produto</span>
-        <br />
-        <b>{PRODUTO[produto]}</b>
-      </div>
-      <Selecao
-        label="Tipo de pedido"
-        value={f.motivo}
-        onChange={(v) => muda('motivo')(v as MotivoCotacao)}
-        opcoes={Object.entries(MOTIVO)}
-        erro={envio.campos.motivo}
-      />
-      <Selecao
-        label="Tipo de cobertura"
-        value={f.cobertura}
-        onChange={muda('cobertura')}
-        opcoes={coberturas.map((c) => [c, c] as const)}
-      />
-      <Campo
-        label="Telefone para contato"
-        type="tel"
-        placeholder="(00) 00000-0000"
-        inputMode="tel"
-        autoComplete="tel-national"
-        value={f.telefone}
-        onChange={(v) => muda('telefone')(mascaraTelefone(v))}
-        erro={envio.campos.telefone}
-      />
-      <AreaTexto
-        label="Detalhes do pedido"
-        placeholder="Informe o que você precisa"
-        value={f.detalhes}
-        onChange={muda('detalhes')}
-        erro={envio.campos.dados}
-      />
-      {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
-      <Botao type="submit" carregando={envio.enviando}>
-        Enviar pedido
-      </Botao>
-    </form>
+    <div className="form-container">
+      <form onSubmit={aoEnviar} noValidate className="form-grid">
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
+        <div className="card full-width">
+          <span className="mut">Produto</span>
+          <br />
+          <b>{PRODUTO[produto]}</b>
+        </div>
+        <Selecao
+          label="Tipo de pedido"
+          value={f.motivo}
+          onChange={(v) => muda('motivo')(v as MotivoCotacao)}
+          onBlur={(v) => muda('motivo')(v as MotivoCotacao)}
+          opcoes={Object.entries(MOTIVO)}
+          erro={envio.campos.motivo}
+          required
+          validar={obrigatorio}
+        />
+        <Selecao
+          label="Tipo de cobertura"
+          value={f.cobertura}
+          onChange={muda('cobertura')}
+          onBlur={muda('cobertura')}
+          opcoes={coberturas.map((c) => [c, c] as const)}
+          required
+          validar={obrigatorio}
+        />
+        <Campo
+          label="Telefone para contato"
+          type="tel"
+          placeholder="(00) 00000-0000"
+          inputMode="tel"
+          autoComplete="tel-national"
+          value={f.telefone}
+          onChange={(v) => muda('telefone')(mascaraTelefone(v))}
+          onBlur={(v) => muda('telefone')(mascaraTelefone(v))}
+          erro={envio.campos.telefone}
+          required
+          validar={validadoresPorTipo.telefone}
+        />
+        <AreaTexto
+          label="Detalhes do pedido"
+          placeholder="Informe o que você precisa"
+          value={f.detalhes}
+          onChange={muda('detalhes')}
+          onBlur={muda('detalhes')}
+          erro={envio.campos.dados}
+          required
+          validar={compor(obrigatorio, textoLivre(10, 2000))}
+          className="full-width"
+        />
+        {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
+        <Botao type="submit" carregando={envio.enviando} className="full-width">
+          Enviar pedido
+        </Botao>
+      </form>
+    </div>
   );
 }
