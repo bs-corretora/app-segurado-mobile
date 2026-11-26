@@ -1,6 +1,7 @@
 import { listarCotacoes } from '../../api';
 import type { Cotacao as CotacaoApi } from '../../api';
 import { MOTIVO, PRODUTO } from '../../constants/rotulos';
+import { GLOSSARIO } from '../../constants/glossario';
 import { data } from '../../utils/formatos';
 import { Botao, Card, ComDados, MaisItens, Tag, Vazio } from '../../components';
 import { useNav } from '../../app/nav';
@@ -25,10 +26,7 @@ function ResumoCotacao({ c }: { c: CotacaoApi }) {
     return (
       <>
         {antes}
-        <span
-          className="tooltip"
-          data-tooltip="O que o seguro protege. Ex.: Colisão, Roubo, Incêndio, Danos a terceiros."
-        >
+        <span className="tooltip" data-tooltip={GLOSSARIO.cobertura}>
           Cobertura
         </span>
         : {match[1]}

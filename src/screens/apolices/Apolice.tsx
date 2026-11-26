@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { linkPdfApolice, buscarApolice } from '../../api';
 import { Aviso, Botao, ComDados, KV, Tag } from '../../components';
 import { PRODUTO } from '../../constants/rotulos';
+import { GLOSSARIO, TERMOS_APOLICE } from '../../constants/glossario';
 import { data, moeda } from '../../utils/formatos';
 import { useApi } from '../../hooks/useApi';
 import { useEnvio } from '../../hooks/useEnvio';
@@ -52,11 +53,7 @@ export function Apolice({ arg }: { arg?: string }) {
             <KV k="Número" v={a.numero} />
             <KV
               k={
-                <span
-                  className="tooltip"
-                  tabIndex={0}
-                  data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas."
-                >
+                <span className="tooltip" tabIndex={0} data-tooltip={GLOSSARIO.vigencia}>
                   Início da vigência
                 </span>
               }
@@ -64,11 +61,7 @@ export function Apolice({ arg }: { arg?: string }) {
             />
             <KV
               k={
-                <span
-                  className="tooltip"
-                  tabIndex={0}
-                  data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas."
-                >
+                <span className="tooltip" tabIndex={0} data-tooltip={GLOSSARIO.vigencia}>
                   Fim da vigência
                 </span>
               }
@@ -76,11 +69,7 @@ export function Apolice({ arg }: { arg?: string }) {
             />
             <KV
               k={
-                <span
-                  className="tooltip"
-                  tabIndex={0}
-                  data-tooltip="Valor que você paga pelo seguro (mensal ou anual)."
-                >
+                <span className="tooltip" tabIndex={0} data-tooltip={GLOSSARIO.premio}>
                   Prêmio
                 </span>
               }
@@ -98,6 +87,16 @@ export function Apolice({ arg }: { arg?: string }) {
           <Botao carregando={envio.enviando} onClick={() => void verPdf()}>
             Ver apólice em PDF
           </Botao>
+          <h2 className="m0">Entenda os termos</h2>
+          <p className="mut m0">
+            Os valores de cobertura e de franquia da sua apólice estão no PDF.
+          </p>
+          {TERMOS_APOLICE.map(([termo, explicacao]) => (
+            <details key={termo} className="card">
+              <summary>{termo}</summary>
+              <p className="mut">{explicacao}</p>
+            </details>
+          ))}
         </>
       )}
     </ComDados>

@@ -1,6 +1,7 @@
 import type { ApoliceResumo } from '../api';
 import { Card } from './Card';
 import { PRODUTO } from '../constants/rotulos';
+import { GLOSSARIO } from '../constants/glossario';
 import { Tag } from './Selo';
 import { data } from '../utils/formatos';
 import { useNav } from '../app/nav';
@@ -18,10 +19,7 @@ export function CartaoApolice({ a }: { a: ApoliceResumo }) {
       </div>
       <div className="mut">Nº {a.numero}</div>
       <div className="mut">
-        <span
-          className="tooltip"
-          data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas."
-        >
+        <span className="tooltip" data-tooltip={GLOSSARIO.vigencia}>
           Vigência
         </span>{' '}
         {data(a.inicio_vigencia)} a {data(a.fim_vigencia)}
