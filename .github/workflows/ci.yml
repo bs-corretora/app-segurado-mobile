@@ -37,8 +37,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # Unitários (Vitest) e o teste de fumaça que renderiza todas as telas.
-      - run: npm test
+      # Unitários com cobertura mínima de 80% de linhas em src/api, src/hooks e src/utils
+      # (falha abaixo disso) e o teste de fumaça que renderiza todas as telas.
+      - run: npm run test:cobertura
+      - run: npm run test:smoke
 
   build:
     name: Build

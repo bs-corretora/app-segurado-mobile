@@ -25,6 +25,7 @@ npm run lint         # ESLint
 npm run format       # Prettier (arruma a formatação)
 npm run typecheck    # TypeScript
 npm test             # testes unitários (Vitest) + teste de fumaça de todas as telas
+npm run test:cobertura  # unitários com o relatório de cobertura (mínimo de 80% em api, hooks e utils)
 npm run build        # tsc + build de produção em dist/
 ```
 

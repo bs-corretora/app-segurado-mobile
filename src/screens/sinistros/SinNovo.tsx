@@ -9,7 +9,17 @@ import { rotuloApolice } from '../../utils/rotuloApolice';
 import { useApi } from '../../hooks/useApi';
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
-import { validadoresPorTipo, compor, obrigatorio, textoLivre } from '../../utils/validacao';
+import {
+  obrigatorio,
+  opcional,
+  textoLivre,
+  validadoresPorTipo,
+  validarTudo,
+} from '../../utils/validacao';
+
+/** Local e descrição são opcionais na API; preenchidos, seguem o tamanho mínimo. */
+const LOCAL = opcional(textoLivre(3, 200));
+const DESCRICAO = opcional(textoLivre(10, 2000));
 
 export function SinNovo() {
   const { go } = useNav();
@@ -53,13 +63,12 @@ export function SinNovo() {
                 local: f.local.trim() || undefined,
                 descricao: f.descricao.trim() || undefined,
               }),
-            () => {
-              const quando = new Date(f.quando);
-              if (!f.quando || Number.isNaN(quando.getTime()))
-                return { data_ocorrencia: 'Informe a data e a hora.' };
-              if (quando > new Date()) return { data_ocorrencia: 'A data não pode ser no futuro.' };
-              return {};
-            },
+            () =>
+              validarTudo({
+                data_ocorrencia: [f.quando, validadoresPorTipo.dataNaoFutura],
+                local: [f.local, LOCAL],
+                descricao: [f.descricao, DESCRICAO],
+              }),
           );
           if (!r) return;
           go('sinistro');
@@ -126,8 +135,7 @@ export function SinNovo() {
                 onChange={muda('local')}
                 onBlur={muda('local')}
                 erro={envio.campos.local}
-                required
-                validar={compor(obrigatorio, textoLivre(3, 200))}
+                validar={LOCAL}
               />
               <AreaTexto
                 label="Descrição"
@@ -136,8 +144,7 @@ export function SinNovo() {
                 onChange={muda('descricao')}
                 onBlur={muda('descricao')}
                 erro={envio.campos.descricao}
-                required
-                validar={compor(obrigatorio, textoLivre(10, 2000))}
+                validar={DESCRICAO}
                 className="full-width"
               />
               {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}

@@ -15,6 +15,7 @@ import {
   tempoDeCasa,
   valorCampoCotacao,
 } from '../src/utils/formatos';
+import { rotuloApolice } from '../src/utils/rotuloApolice';
 
 // O Intl separa "R$" do número com espaço sem quebra (U+00A0); \s também o reconhece.
 const semNbsp = (s: string) => s.replace(/\s/g, ' ');
@@ -131,5 +132,20 @@ describe('mensagens de erro', () => {
 
   it('falha de rede vira mensagem de conexão', () => {
     expect(mensagemDeErro(new TypeError('Failed to fetch'))).toMatch(/conectar|internet/);
+  });
+});
+
+describe('rotuloApolice', () => {
+  it('RF-03: apólice no seletor do sinistro mostra produto e número', () => {
+    expect(
+      rotuloApolice({
+        id: 'a1',
+        produto: 'AUTO',
+        numero: 'AU-2026-004821',
+        status: 'ATIVA',
+        inicio_vigencia: '2026-01-10',
+        fim_vigencia: '2027-01-10',
+      }),
+    ).toBe('Auto — AU-2026-004821');
   });
 });

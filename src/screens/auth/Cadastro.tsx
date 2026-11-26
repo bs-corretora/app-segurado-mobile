@@ -6,7 +6,7 @@ import { mascaraCpf, mascaraTelefone, paraInputDataHora, soDigitos } from '../..
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
 import { guardarPendente } from '../../utils/codigoEmail';
-import { validadoresPorTipo } from '../../utils/validacao';
+import { validadoresPorTipo as v, validarTudo } from '../../utils/validacao';
 
 export function Cadastro() {
   const { go } = useNav();
@@ -44,8 +44,19 @@ export function Cadastro() {
           aceite_termos: true,
           aceita_marketing: f.aceita_marketing,
         }),
-      () =>
-        f.aceite_termos ? {} : { aceite_termos: 'É preciso aceitar os termos para criar a conta.' },
+      () => ({
+        ...validarTudo({
+          nome: [f.nome, v.nome],
+          cpf: [f.cpf, v.cpf],
+          email: [f.email, v.email],
+          telefone: [f.telefone, v.telefone],
+          data_nascimento: [f.data_nascimento, v.dataNaoFutura],
+          senha: [f.senha, v.senha],
+        }),
+        ...(f.aceite_termos
+          ? {}
+          : { aceite_termos: 'É preciso aceitar os termos para criar a conta.' }),
+      }),
     );
     if (!r) return;
     // Sem sessão ainda: o e-mail precisa ser confirmado com o código que acabou de chegar.
@@ -70,7 +81,7 @@ export function Cadastro() {
           onBlur={muda('nome')}
           erro={c.nome}
           required
-          validar={validadoresPorTipo.nome}
+          validar={v.nome}
         />
         <Campo
           label="CPF"
@@ -81,7 +92,7 @@ export function Cadastro() {
           onBlur={(v) => muda('cpf')(mascaraCpf(v))}
           erro={c.cpf}
           required
-          validar={validadoresPorTipo.cpf}
+          validar={v.cpf}
         />
         <Campo
           label="E-mail"
@@ -94,7 +105,7 @@ export function Cadastro() {
           onBlur={muda('email')}
           erro={c.email}
           required
-          validar={validadoresPorTipo.email}
+          validar={v.email}
         />
         <Campo
           label="Celular"
@@ -107,7 +118,7 @@ export function Cadastro() {
           onBlur={(v) => muda('telefone')(mascaraTelefone(v))}
           erro={c.telefone}
           required
-          validar={validadoresPorTipo.telefone}
+          validar={v.telefone}
         />
         <Campo
           label="Data de nascimento"
@@ -119,7 +130,7 @@ export function Cadastro() {
           onBlur={muda('data_nascimento')}
           erro={c.data_nascimento}
           required
-          validar={validadoresPorTipo.dataNaoFutura}
+          validar={v.dataNaoFutura}
         />
         <Campo
           label="Senha (mínimo 8 caracteres)"
@@ -131,7 +142,7 @@ export function Cadastro() {
           onBlur={muda('senha')}
           erro={c.senha}
           required
-          validar={validadoresPorTipo.senha}
+          validar={v.senha}
         />
         <h2>Já tem apólice? (opcional)</h2>
         <Campo

@@ -6,7 +6,7 @@ import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
 import { useSessao } from '../../app/sessao';
 import { guardarPendente, limparPendente } from '../../utils/codigoEmail';
-import { validadoresPorTipo } from '../../utils/validacao';
+import { validadoresPorTipo, validarTudo } from '../../utils/validacao';
 
 export function Login() {
   const { go } = useNav();
@@ -29,10 +29,11 @@ export function Login() {
           return 'confirmar' as const;
         }
       },
-      () => ({
-        ...(email.trim() ? {} : { email: 'Informe seu e-mail.' }),
-        ...(senha ? {} : { senha: 'Informe sua senha.' }),
-      }),
+      () =>
+        validarTudo({
+          email: [email, validadoresPorTipo.email],
+          senha: [senha, validadoresPorTipo.senhaAtual],
+        }),
     );
     if (!r) return;
     if (r === 'confirmar') {
