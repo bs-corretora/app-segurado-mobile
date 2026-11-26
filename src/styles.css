@@ -1293,6 +1293,13 @@ header .av {
   align-items: center;
   gap: 4px;
   cursor: help;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+}
+.tooltip:focus-visible {
+  outline: 2px solid var(--sec);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 .tooltip::before,
 .tooltip::after {
@@ -1311,12 +1318,14 @@ header .av {
   transform: translateX(-50%) translateY(4px);
   background: var(--pri);
   color: #fff;
-  font-size: 12px;
-  font-weight: 400;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
   padding: 8px 12px;
   border-radius: 8px;
-  white-space: nowrap;
-  max-width: 280px;
+  white-space: normal;
+  width: max-content;
+  max-width: min(280px, 80vw);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 .tooltip::after {

@@ -54,6 +54,7 @@ export function Apolice({ arg }: { arg?: string }) {
               k={
                 <span
                   className="tooltip"
+                  tabIndex={0}
                   data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas."
                 >
                   Início da vigência
@@ -65,6 +66,7 @@ export function Apolice({ arg }: { arg?: string }) {
               k={
                 <span
                   className="tooltip"
+                  tabIndex={0}
                   data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas."
                 >
                   Fim da vigência
@@ -76,6 +78,7 @@ export function Apolice({ arg }: { arg?: string }) {
               k={
                 <span
                   className="tooltip"
+                  tabIndex={0}
                   data-tooltip="Valor que você paga pelo seguro (mensal ou anual)."
                 >
                   Prêmio

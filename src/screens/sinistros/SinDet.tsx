@@ -26,7 +26,11 @@ export function SinDet({ arg }: { arg?: string }) {
             {apolice && (
               <KV
                 k={
-                  <span className="tooltip" data-tooltip="Apólice vinculada a este sinistro.">
+                  <span
+                    className="tooltip"
+                    tabIndex={0}
+                    data-tooltip="Apólice vinculada a este sinistro."
+                  >
                     Apólice
                   </span>
                 }
@@ -35,7 +39,11 @@ export function SinDet({ arg }: { arg?: string }) {
             )}
             <KV
               k={
-                <span className="tooltip" data-tooltip="Data e hora em que o sinistro ocorreu.">
+                <span
+                  className="tooltip"
+                  tabIndex={0}
+                  data-tooltip="Data e hora em que o sinistro ocorreu."
+                >
                   Ocorrência
                 </span>
               }

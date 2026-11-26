@@ -86,6 +86,7 @@ export function SinNovo() {
                 label={
                   <span
                     className="tooltip"
+                    tabIndex={0}
                     data-tooltip="Tipo de evento: Colisão, Roubo ou furto, Incêndio, Dano elétrico ou Outro."
                   >
                     Tipo de sinistro
@@ -101,7 +102,11 @@ export function SinNovo() {
               />
               <Campo
                 label={
-                  <span className="tooltip" data-tooltip="Data e hora em que o sinistro ocorreu.">
+                  <span
+                    className="tooltip"
+                    tabIndex={0}
+                    data-tooltip="Data e hora em que o sinistro ocorreu."
+                  >
                     Data e hora da ocorrência
                   </span>
                 }
