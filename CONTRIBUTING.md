@@ -38,13 +38,13 @@ protegida e recusa.
 
 ## O que o CI confere
 
-| Job                      | O que barra                                                        |
-| ------------------------ | ------------------------------------------------------------------ |
-| Lint, formatação e tipos | ESLint, Prettier (`format:check`) e `tsc --noEmit`                 |
-| Testes                   | Vitest (`tests/`) e o teste de fumaça que renderiza todas as telas |
-| Build                    | `npm run build` em Linux (pega import com maiúscula errada)        |
-| Segurança › Gitleaks     | segredo em qualquer commit do histórico                            |
-| Segurança › npm audit    | dependência de produção com alerta alto ou crítico                 |
+| Job                      | O que barra                                                                                                                                                                 |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lint, formatação e tipos | ESLint, Prettier (`format:check`) e `tsc --noEmit`                                                                                                                          |
+| Testes                   | Vitest (`tests/`) com cobertura mínima de 80% de linhas em `src/api`, `src/hooks` e `src/utils` (`npm run test:cobertura`) e o teste de fumaça que renderiza todas as telas |
+| Build                    | `npm run build` em Linux (pega import com maiúscula errada)                                                                                                                 |
+| Segurança › Gitleaks     | segredo em qualquer commit do histórico                                                                                                                                     |
+| Segurança › npm audit    | dependência de produção com alerta alto ou crítico                                                                                                                          |
 
 ## Código
 
@@ -54,3 +54,11 @@ protegida e recusa.
 - **Nomes em português**, iguais aos da API (`apolice`, `sinistro`, `cotacao`).
 - **Estilo no CSS**, não em `style={{ }}`.
 - Teste novo com o ID do requisito no nome: `RF-03: recusa data de ocorrência no futuro`.
+
+## Versões
+
+- Toda mudança que a pessoa usuária percebe entra no `CHANGELOG.md`, em **Não lançado**.
+- Para lançar: mover o que está em **Não lançado** para a versão nova, subir a versão no
+  `package.json` no mesmo PR e, depois do merge, criar a tag anotada e a Release:
+  `git tag -a v0.2.0 -m "v0.2.0"`, `git push origin v0.2.0` e
+  `gh release create v0.2.0 --notes-file <trecho do CHANGELOG>`.
