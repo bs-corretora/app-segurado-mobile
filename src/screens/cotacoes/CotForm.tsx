@@ -7,7 +7,17 @@ import { AreaTexto, Aviso, Botao, Campo, Selecao } from '../../components';
 import { mascaraTelefone, soDigitos } from '../../utils/formatos';
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
-import { validadoresPorTipo, compor, obrigatorio, textoLivre } from '../../utils/validacao';
+import {
+  obrigatorio,
+  opcional,
+  textoLivre,
+  validadoresPorTipo,
+  validarTudo,
+} from '../../utils/validacao';
+
+/** Telefone e detalhes são opcionais; preenchidos, precisam estar no formato. */
+const TELEFONE = opcional(validadoresPorTipo.telefone);
+const DETALHES = opcional(textoLivre(10, 2000));
 
 const ehProduto = (p: string | undefined): p is Produto => !!p && p in PRODUTO;
 
@@ -51,10 +61,7 @@ export function CotForm({ arg }: { arg?: string }) {
     if (f.detalhes.trim()) dados.detalhes = f.detalhes.trim();
     const r = await envio.enviar(
       () => pedirCotacao({ produto, motivo: f.motivo, dados }),
-      () =>
-        tel && tel.length !== 10 && tel.length !== 11
-          ? { telefone: 'Informe o telefone com DDD.' }
-          : {},
+      () => validarTudo({ telefone: [f.telefone, TELEFONE], dados: [f.detalhes, DETALHES] }),
     );
     if (!r) return;
     go('cotacao');
@@ -101,8 +108,7 @@ export function CotForm({ arg }: { arg?: string }) {
           onChange={(v) => muda('telefone')(mascaraTelefone(v))}
           onBlur={(v) => muda('telefone')(mascaraTelefone(v))}
           erro={envio.campos.telefone}
-          required
-          validar={validadoresPorTipo.telefone}
+          validar={TELEFONE}
         />
         <AreaTexto
           label="Detalhes do pedido"
@@ -111,8 +117,7 @@ export function CotForm({ arg }: { arg?: string }) {
           onChange={muda('detalhes')}
           onBlur={muda('detalhes')}
           erro={envio.campos.dados}
-          required
-          validar={compor(obrigatorio, textoLivre(10, 2000))}
+          validar={DETALHES}
           className="full-width"
         />
         {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}

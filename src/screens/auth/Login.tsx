@@ -5,7 +5,7 @@ import { entrar } from '../../api';
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
 import { useSessao } from '../../app/sessao';
-import { validadoresPorTipo } from '../../utils/validacao';
+import { validadoresPorTipo, validarTudo } from '../../utils/validacao';
 
 export function Login() {
   const { go } = useNav();
@@ -18,10 +18,11 @@ export function Login() {
     e.preventDefault();
     const r = await envio.enviar(
       () => entrar(email.trim(), senha),
-      () => ({
-        ...(email.trim() ? {} : { email: 'Informe seu e-mail.' }),
-        ...(senha ? {} : { senha: 'Informe sua senha.' }),
-      }),
+      () =>
+        validarTudo({
+          email: [email, validadoresPorTipo.email],
+          senha: [senha, validadoresPorTipo.senhaAtual],
+        }),
     );
     if (!r) return;
     await atualizar();
