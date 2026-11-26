@@ -6,7 +6,10 @@ import type { Perfil as PerfilApi } from '../../api';
 import { useApi } from '../../hooks/useApi';
 import { mascaraCpf, mascaraTelefone, soDigitos } from '../../utils/formatos';
 import { useEnvio } from '../../hooks/useEnvio';
-import { validadoresPorTipo } from '../../utils/validacao';
+import { opcional, validadoresPorTipo, validarTudo } from '../../utils/validacao';
+
+/** O telefone pode ficar vazio (a API grava nulo); preenchido, precisa ter DDD. */
+const TELEFONE = opcional(validadoresPorTipo.telefone);
 
 export function Dados() {
   const r = useApi(buscarPerfil);
@@ -31,8 +34,9 @@ function FormDados({ perfil }: { perfil: PerfilApi }) {
   const aoEnviar = async (e: FormEvent) => {
     e.preventDefault();
     setSalvou(false);
-    const r = await envio.enviar(() =>
-      atualizarPerfil({ telefone: soDigitos(tel) || null, aceita_marketing: marketing }),
+    const r = await envio.enviar(
+      () => atualizarPerfil({ telefone: soDigitos(tel) || null, aceita_marketing: marketing }),
+      () => validarTudo({ telefone: [tel, TELEFONE] }),
     );
     if (r) setSalvou(true);
   };
@@ -65,8 +69,7 @@ function FormDados({ perfil }: { perfil: PerfilApi }) {
             setTel(mascaraTelefone(v));
           }}
           erro={envio.campos.telefone}
-          required
-          validar={validadoresPorTipo.telefone}
+          validar={TELEFONE}
         />
         <Caixa
           checked={marketing}
@@ -107,12 +110,11 @@ function FormSenha() {
         await trocarSenha(atual, nova);
         return true;
       },
-      () => ({
-        ...(atual ? {} : { senha_atual: 'Informe sua senha atual.' }),
-        ...(nova.length >= 8
-          ? {}
-          : { nova_senha: 'A nova senha precisa de 8 caracteres ou mais.' }),
-      }),
+      () =>
+        validarTudo({
+          senha_atual: [atual, validadoresPorTipo.senhaAtual],
+          nova_senha: [nova, validadoresPorTipo.senha],
+        }),
     );
     if (!r) return;
     setAtual('');

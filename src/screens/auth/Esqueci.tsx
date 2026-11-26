@@ -4,7 +4,7 @@ import { Aviso, AvisoDemora, Botao, Campo } from '../../components';
 import { pedirNovaSenha } from '../../api';
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
-import { validadoresPorTipo } from '../../utils/validacao';
+import { validadoresPorTipo, validarTudo } from '../../utils/validacao';
 
 export function Esqueci() {
   const { go } = useNav();
@@ -18,7 +18,7 @@ export function Esqueci() {
         await pedirNovaSenha(email.trim());
         return true;
       },
-      () => (email.trim() ? {} : { email: 'Informe seu e-mail.' }),
+      () => validarTudo({ email: [email, validadoresPorTipo.email] }),
     );
     if (r) go('esqueciok');
   };

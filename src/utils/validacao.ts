@@ -132,19 +132,44 @@ export const compor =
     return undefined;
   };
 
-/** Mapa de validadores por tipo de campo comum para uso rápido. */
+/** Campo opcional: vazio passa; preenchido, segue a regra. */
+export const opcional =
+  (validador: Validador): Validador =>
+  (valor) =>
+    valor.trim() ? validador(valor) : undefined;
+
+/**
+ * Roda as regras de um formulário inteiro na hora de enviar.
+ * Recebe `{ campo: [valor, validador] }` e devolve só os campos com erro,
+ * no formato que o `useEnvio().enviar(acao, validar)` espera.
+ */
+export function validarTudo(
+  regras: Record<string, readonly [valor: string, validador: Validador]>,
+): Record<string, string> {
+  const erros: Record<string, string> = {};
+  for (const [campo, [valor, validador]] of Object.entries(regras)) {
+    const erro = validador(valor);
+    if (erro) erros[campo] = erro;
+  }
+  return erros;
+}
+
+/**
+ * Validadores prontos por tipo de campo. Cada um já trata o vazio com a própria
+ * mensagem (ex.: "Informe seu nome completo."), por isso não passam pelo `obrigatorio`.
+ */
 export const validadoresPorTipo = {
-  nome: compor(obrigatorio, nomeCompleto),
-  email: compor(obrigatorio, email),
-  cpf: compor(obrigatorio, cpf),
-  telefone: compor(obrigatorio, telefone),
-  cep: compor(obrigatorio, cep),
-  placa: compor(obrigatorio, placa),
-  data: compor(obrigatorio, data),
-  dataNaoFutura: compor(obrigatorio, dataNaoFutura),
-  senha: compor(obrigatorio, senhaMin8),
+  nome: nomeCompleto,
+  email,
+  cpf,
+  telefone,
+  cep,
+  placa,
+  data,
+  dataNaoFutura,
+  senha: senhaMin8,
   /** Login e senha atual: só exige preenchido (contas antigas podem ter senha mais curta). */
   senhaAtual: (valor: string) => (valor ? undefined : 'Informe a senha.'),
-  textoCurto: compor(obrigatorio, textoLivre(5, 200)),
-  textoLongo: compor(obrigatorio, textoLivre(10, 2000)),
+  textoCurto: textoLivre(5, 200),
+  textoLongo: textoLivre(10, 2000),
 } as const;
