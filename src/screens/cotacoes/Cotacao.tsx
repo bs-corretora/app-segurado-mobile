@@ -48,17 +48,19 @@ export function Cotacao() {
         {(itens) =>
           itens.length ? (
             <>
-              {itens.map((c) => (
-                <Card key={c.id} onClick={() => go('cot-det', c.id)}>
-                  <div className="row">
-                    <b>{PRODUTO[c.produto]}</b>
-                    <Tag s={c.status} />
-                  </div>
-                  <div className="mut">
-                    <ResumoCotacao c={c} />
-                  </div>
-                </Card>
-              ))}
+              <div className="grid-2col">
+                {itens.map((c) => (
+                  <Card key={c.id} onClick={() => go('cot-det', c.id)}>
+                    <div className="row">
+                      <b>{PRODUTO[c.produto]}</b>
+                      <Tag s={c.status} />
+                    </div>
+                    <div className="mut">
+                      <ResumoCotacao c={c} />
+                    </div>
+                  </Card>
+                ))}
+              </div>
               <MaisItens r={r} />
             </>
           ) : (

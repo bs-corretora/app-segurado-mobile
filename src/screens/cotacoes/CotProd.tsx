@@ -7,12 +7,14 @@ export function CotProd() {
   return (
     <>
       <p className="mut m0">Qual seguro você quer cotar?</p>
-      {PRODUTOS.map((p) => (
-        <Card key={p} className="row" onClick={() => go('cot-form', p)}>
-          <b>{PRODUTO[p]}</b>
-          <Icon n="shield" />
-        </Card>
-      ))}
+      <div className="grid-2col">
+        {PRODUTOS.map((p) => (
+          <Card key={p} className="row" onClick={() => go('cot-form', p)}>
+            <b>{PRODUTO[p]}</b>
+            <Icon n="shield" />
+          </Card>
+        ))}
+      </div>
     </>
   );
 }

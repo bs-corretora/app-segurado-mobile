@@ -9,9 +9,11 @@ export function Apolices() {
       {(itens) =>
         itens.length ? (
           <>
-            {itens.map((a) => (
-              <CartaoApolice key={a.id} a={a} />
-            ))}
+            <div className="grid-2col">
+              {itens.map((a) => (
+                <CartaoApolice key={a.id} a={a} />
+              ))}
+            </div>
             <MaisItens r={r} />
           </>
         ) : (
