@@ -6,6 +6,7 @@ import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
 import { useSessao } from '../../app/sessao';
 import { guardarPendente, limparPendente } from '../../utils/codigoEmail';
+import { validadoresPorTipo } from '../../utils/validacao';
 
 export function Login() {
   const { go } = useNav();
@@ -45,39 +46,50 @@ export function Login() {
   };
 
   return (
-    <form onSubmit={aoEnviar} noValidate>
-      <Logo />
-      <h1 className="tc">Bem-vindo de volta</h1>
-      <Campo
-        label="E-mail"
-        type="email"
-        placeholder="voce@email.com"
-        autoComplete="email"
-        inputMode="email"
-        value={email}
-        onChange={setEmail}
-        erro={envio.campos.email}
-      />
-      <Campo
-        label="Senha"
-        type="password"
-        placeholder="Sua senha"
-        autoComplete="current-password"
-        value={senha}
-        onChange={setSenha}
-        erro={envio.campos.senha}
-      />
-      {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
-      <AvisoDemora ativo={envio.demorando} />
-      <Botao type="submit" carregando={envio.enviando}>
-        Entrar
-      </Botao>
-      <button type="button" className="lk" onClick={() => go('esqueci')}>
-        Esqueci minha senha
-      </button>
-      <Botao variante="out" onClick={() => go('cadastro')}>
-        Criar conta
-      </Botao>
-    </form>
+    <div className="form-container">
+      <form onSubmit={aoEnviar} noValidate className="form-grid">
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
+        <Logo />
+        <h1 className="tc">Bem-vindo de volta</h1>
+        <Campo
+          label="E-mail"
+          type="email"
+          placeholder="voce@email.com"
+          autoComplete="email"
+          inputMode="email"
+          value={email}
+          onChange={setEmail}
+          onBlur={setEmail}
+          erro={envio.campos.email}
+          required
+          validar={validadoresPorTipo.email}
+        />
+        <Campo
+          label="Senha"
+          type="password"
+          placeholder="Sua senha"
+          autoComplete="current-password"
+          value={senha}
+          onChange={setSenha}
+          onBlur={setSenha}
+          erro={envio.campos.senha}
+          required
+          validar={validadoresPorTipo.senhaAtual}
+        />
+        {envio.erro && <Aviso tipo="err">{envio.erro}</Aviso>}
+        <AvisoDemora ativo={envio.demorando} />
+        <Botao type="submit" carregando={envio.enviando} className="full-width">
+          Entrar
+        </Botao>
+        <button type="button" className="lk full-width" onClick={() => go('esqueci')}>
+          Esqueci minha senha
+        </button>
+        <Botao variante="out" className="full-width" onClick={() => go('cadastro')}>
+          Criar conta
+        </Botao>
+      </form>
+    </div>
   );
 }

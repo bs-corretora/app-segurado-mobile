@@ -70,6 +70,8 @@ export type NovoCadastro = {
   /** Opcional, ex.: `AU-2026-004821`. Com ele, as apólices do mesmo CPF já vêm vinculadas. */
   numero_apolice?: string;
   aceite_termos: true;
+  /** Opcional: se o usuário quer receber novidades por e-mail/notificação. */
+  aceita_marketing?: boolean;
 };
 
 // ----- Perfil e início -------------------------------------------------------

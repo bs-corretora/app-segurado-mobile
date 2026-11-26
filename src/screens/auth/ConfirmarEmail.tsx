@@ -76,50 +76,57 @@ export function ConfirmarEmail({ arg }: { arg?: string }) {
   };
 
   return (
-    <form onSubmit={aoConfirmar} noValidate>
-      <Logo />
-      <h1 className="tc">Confirme seu e-mail</h1>
-      <p className="tc corpo">
-        Enviamos um código de 6 números para <b className="quebra">{email}</b>. Digite-o abaixo para
-        entrar.
-      </p>
-      <div className="codigo">
-        <Campo
-          label="Código de 6 números"
-          placeholder="000000"
-          inputMode="numeric"
-          autoComplete="one-time-code"
-          value={codigo}
-          onChange={(v) => setCodigo(limparCodigo(v))}
-          erro={envio.campos.codigo}
-          dica="Confira também a caixa de spam."
-        />
-      </div>
-      {envio.erro && !envio.campos.codigo && <Aviso tipo="err">{envio.erro}</Aviso>}
-      <AvisoDemora ativo={envio.demorando} />
-      <Botao type="submit" carregando={envio.enviando}>
-        Confirmar
-      </Botao>
-      {reenviado && !reenvio.erro && <Aviso tipo="ok">Enviamos um novo código.</Aviso>}
-      {reenvio.erro && <Aviso tipo="err">{reenvio.erro}</Aviso>}
-      <button
-        type="button"
-        className="lk"
-        onClick={() => void aoReenviar()}
-        disabled={restam > 0 || reenvio.enviando}
-      >
-        {restam > 0 ? `Reenviar código em ${restam} s` : 'Reenviar código'}
-      </button>
-      <button
-        type="button"
-        className="lk"
-        onClick={() => {
-          limparPendente();
-          go('login');
-        }}
-      >
-        Voltar ao login
-      </button>
-    </form>
+    <div className="form-container">
+      <form onSubmit={aoConfirmar} noValidate className="form-grid">
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
+        <Logo />
+        <h1 className="tc">Confirme seu e-mail</h1>
+        <p className="tc corpo">
+          Enviamos um código de 6 números para <b className="quebra">{email}</b>. Digite-o abaixo
+          para entrar.
+        </p>
+        <div className="codigo">
+          <Campo
+            label="Código de 6 números"
+            placeholder="000000"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            value={codigo}
+            onChange={(v) => setCodigo(limparCodigo(v))}
+            erro={envio.campos.codigo}
+            required
+            validar={(v) => (codigoCompleto(v) ? undefined : 'Digite os 6 números do código.')}
+            dica="Confira também a caixa de spam."
+          />
+        </div>
+        {envio.erro && !envio.campos.codigo && <Aviso tipo="err">{envio.erro}</Aviso>}
+        <AvisoDemora ativo={envio.demorando} />
+        <Botao type="submit" carregando={envio.enviando}>
+          Confirmar
+        </Botao>
+        {reenviado && !reenvio.erro && <Aviso tipo="ok">Enviamos um novo código.</Aviso>}
+        {reenvio.erro && <Aviso tipo="err">{reenvio.erro}</Aviso>}
+        <button
+          type="button"
+          className="lk"
+          onClick={() => void aoReenviar()}
+          disabled={restam > 0 || reenvio.enviando}
+        >
+          {restam > 0 ? `Reenviar código em ${restam} s` : 'Reenviar código'}
+        </button>
+        <button
+          type="button"
+          className="lk"
+          onClick={() => {
+            limparPendente();
+            go('login');
+          }}
+        >
+          Voltar ao login
+        </button>
+      </form>
+    </div>
   );
 }
