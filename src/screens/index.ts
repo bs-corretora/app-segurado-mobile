@@ -3,6 +3,7 @@ import { Abrindo } from './auth/Abrindo';
 import { Login } from './auth/Login';
 import { Esqueci } from './auth/Esqueci';
 import { EsqueciOk } from './auth/EsqueciOk';
+import { ConfirmarEmail } from './auth/ConfirmarEmail';
 import { Cadastro } from './auth/Cadastro';
 import { Boas } from './auth/Boas';
 import { Inicio } from './inicio/Inicio';
@@ -32,6 +33,7 @@ export const SCREENS: Record<string, ComponentType<{ arg?: string }>> = {
   esqueci: Esqueci,
   esqueciok: EsqueciOk,
   cadastro: Cadastro,
+  'confirmar-email': ConfirmarEmail,
   boas: Boas,
   home: Inicio,
   apolices: Apolices,

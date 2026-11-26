@@ -29,6 +29,7 @@ export const ICONE_ABA = {
 
 /** Título do cabeçalho das telas internas. */
 export const TITULO: Record<string, string> = {
+  'confirmar-email': 'Confirme seu e-mail',
   perfil: 'Meu perfil',
   apolices: 'Minhas apólices',
   apolice: 'Detalhe da apólice',

@@ -5,11 +5,10 @@ import { cadastrar } from '../../api';
 import { mascaraCpf, mascaraTelefone, paraInputDataHora, soDigitos } from '../../utils/formatos';
 import { useEnvio } from '../../hooks/useEnvio';
 import { useNav } from '../../app/nav';
-import { useSessao } from '../../app/sessao';
+import { guardarPendente } from '../../utils/codigoEmail';
 
 export function Cadastro() {
   const { go } = useNav();
-  const { atualizar } = useSessao();
   const envio = useEnvio();
   const [f, setF] = useState({
     nome: '',
@@ -46,9 +45,10 @@ export function Cadastro() {
         f.aceite_termos ? {} : { aceite_termos: 'É preciso aceitar os termos para criar a conta.' },
     );
     if (!r) return;
-    await atualizar();
-    go('home');
-    go('boas');
+    // Sem sessão ainda: o e-mail precisa ser confirmado com o código que acabou de chegar.
+    const email = f.email.trim();
+    guardarPendente(email, true);
+    go('confirmar-email', email);
   };
 
   return (
