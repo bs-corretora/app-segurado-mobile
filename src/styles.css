@@ -290,19 +290,76 @@ main {
 }
 @media (min-width: 1024px) {
   main {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px;
   }
 }
+
+/* ----- Regras base que existiam antes do design system ------------------- */
+/* Altura fixa da tela: o #root herda 100% e só o <main> rola. */
+#root {
+  height: 100%;
+}
+#app {
+  overflow: hidden;
+}
+main {
+  min-height: 0;
+}
+main.fora {
+  justify-content: flex-start;
+  padding-top: 24px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+form > .btn,
+form > .aviso,
+form > .lk {
+  margin-top: 8px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.li {
+  cursor: pointer;
+}
+.ok {
+  color: var(--ok);
+}
+.warn {
+  color: var(--warn);
+}
+.err {
+  color: var(--err);
+}
+button:focus-visible,
+a:focus-visible,
+.li:focus-visible {
+  outline: 2px solid var(--sec);
+  outline-offset: 2px;
+}
+ol.tl {
+  list-style: none;
+  margin: 0 0 0 6px;
+}
+/* Barra de abas no fim da coluna do #app (fora do fluxo, cobria o fim da lista). */
 nav {
   display: flex;
   background: var(--card);
   border-top: 1px solid var(--bd);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 100;
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
