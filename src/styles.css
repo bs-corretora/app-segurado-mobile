@@ -28,13 +28,13 @@
     --sec-l: #1e293b;
     --tx: #dae2fd;
     --tx2: #94a3b8;
-    --tx-muted: #64748b;
+    --tx-muted: #94a3b8;
     --bd: #334155;
     --bd-strong: #424754;
     --ok: #10b981;
     --warn: #f59e0b;
-    --err: #ef4444;
-    --lk: #3b82f6;
+    --err: #f87171;
+    --lk: #93c5fd;
     --info: #3b82f6;
     --info-bg: rgba(59, 130, 246, 0.15);
     --info-border: rgba(59, 130, 246, 0.3);
@@ -46,13 +46,13 @@
   --sec-l: #1e293b;
   --tx: #dae2fd;
   --tx2: #94a3b8;
-  --tx-muted: #64748b;
+  --tx-muted: #94a3b8;
   --bd: #334155;
   --bd-strong: #424754;
   --ok: #10b981;
   --warn: #f59e0b;
-  --err: #ef4444;
-  --lk: #3b82f6;
+  --err: #f87171;
+  --lk: #93c5fd;
   --info: #3b82f6;
   --info-bg: rgba(59, 130, 246, 0.15);
   --info-border: rgba(59, 130, 246, 0.3);
@@ -266,7 +266,7 @@ header button {
   position: absolute;
   top: 0;
   right: -2px;
-  background: var(--err);
+  background: #b91c1c; /* fixo: texto branco em cima, nos dois temas */
   font-size: 10px;
   font-style: normal;
   min-width: 16px;
