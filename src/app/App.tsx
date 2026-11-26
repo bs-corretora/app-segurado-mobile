@@ -173,22 +173,24 @@ export function Shell() {
   }, [n]);
 
   return (
-    <div id="app">
-      <Sidebar />
+    <div id="app" className={comCabecalho ? 'com-menu' : undefined}>
+      {comCabecalho && <Sidebar />}
       {comCabecalho && <Header />}
       <Faixas />
       <main key={`${n}-${a ?? ''}`} className={comCabecalho ? '' : 'fora'}>
         <Screen arg={a} />
       </main>
       {ehAba(n) && <TabBar />}
-      {/* FAB Assistente Global (Mobile) */}
-      <button
-        className="fab-assistente"
-        onClick={() => go('assistente')}
-        aria-label="Abrir Assistente Virtual"
-      >
-        <Icon n="chat" className="ic" />
-      </button>
+      {/* FAB Assistente Global (Mobile): só com o app aberto e fora da própria conversa */}
+      {comCabecalho && n !== 'assistente' && (
+        <button
+          className={`fab-assistente ${ehAba(n) ? '' : 'sem-abas'}`}
+          onClick={() => go('assistente')}
+          aria-label="Abrir Assistente Virtual"
+        >
+          <Icon n="chat" className="ic" />
+        </button>
+      )}
     </div>
   );
 }

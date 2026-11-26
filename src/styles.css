@@ -124,7 +124,7 @@ body {
     z-index: 100;
     overflow-y: auto;
   }
-  #app {
+  #app.com-menu {
     margin-left: 260px;
   }
   .sidebar-header {
@@ -138,12 +138,18 @@ body {
     gap: 10px;
     font-weight: 700;
     font-size: 18px;
-    color: var(--pri);
+    color: var(--tx);
   }
+  /* Não herda a barra de abas de baixo (regra genérica de `nav`). */
   .sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    position: static;
+    background: none;
+    border-top: 0;
+    padding: 0;
+    z-index: auto;
   }
   .sidebar-nav-item {
     display: flex;
@@ -154,8 +160,8 @@ body {
     background: none;
     border: 0;
     color: var(--tx2);
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
     text-align: left;
     width: 100%;
@@ -165,7 +171,7 @@ body {
   }
   .sidebar-nav-item:hover {
     background: var(--sec-l);
-    color: var(--sec);
+    color: var(--lk);
   }
   .sidebar-nav-item:focus-visible {
     outline: 2px solid var(--sec);
@@ -173,8 +179,8 @@ body {
   }
   .sidebar-nav-item.active {
     background: var(--sec-l);
-    color: var(--sec);
-    font-weight: 600;
+    color: var(--lk);
+    font-weight: 700;
   }
   .sidebar-nav-item .ic {
     width: 24px;
@@ -231,11 +237,6 @@ header {
   position: sticky;
   top: 0;
   z-index: 50;
-}
-@media (min-width: 1024px) {
-  header {
-    display: none;
-  }
 }
 header .t,
 header b {
@@ -1384,6 +1385,9 @@ header .av {
   .fab-assistente {
     display: flex;
   }
+  .fab-assistente.sem-abas {
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  }
 }
 @media (min-width: 1024px) {
   .fab-assistente {
@@ -1401,11 +1405,11 @@ header .av {
     gap: 8px;
     padding: 8px 12px;
     background: var(--sec-l);
-    color: var(--sec);
-    border: 1px solid var(--sec);
+    color: var(--lk);
+    border: 1px solid var(--lk);
     border-radius: 10px;
     font:
-      600 13px 'Inter',
+      600 15px 'Inter',
       system-ui,
       sans-serif;
     cursor: pointer;
