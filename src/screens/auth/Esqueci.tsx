@@ -26,7 +26,9 @@ export function Esqueci() {
   return (
     <div className="form-container">
       <form onSubmit={aoEnviar} noValidate className="form-grid">
-        <p className="legend-obrigatorio" aria-hidden="true">* obrigatório</p>
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
         <h1>Redefinir senha</h1>
         <p className="mut">Informe seu e-mail e enviaremos um link para criar uma nova senha.</p>
         <Campo

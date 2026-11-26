@@ -69,7 +69,9 @@ export function SinNovo() {
         return (
           <div className="form-container">
             <form onSubmit={aoEnviar} noValidate className="form-grid">
-              <p className="legend-obrigatorio" aria-hidden="true">* obrigatório</p>
+              <p className="legend-obrigatorio" aria-hidden="true">
+                * obrigatório
+              </p>
               <Selecao
                 label="Apólice"
                 value={apolice_id}
@@ -81,7 +83,14 @@ export function SinNovo() {
                 validar={obrigatorio}
               />
               <Selecao
-                label={<span className="tooltip" data-tooltip="Tipo de evento: Colisão, Roubo ou furto, Incêndio, Dano elétrico ou Outro.">Tipo de sinistro</span>}
+                label={
+                  <span
+                    className="tooltip"
+                    data-tooltip="Tipo de evento: Colisão, Roubo ou furto, Incêndio, Dano elétrico ou Outro."
+                  >
+                    Tipo de sinistro
+                  </span>
+                }
                 value={f.tipo}
                 onChange={(v) => muda('tipo')(v as TipoSinistro)}
                 onBlur={(v) => muda('tipo')(v as TipoSinistro)}
@@ -91,7 +100,11 @@ export function SinNovo() {
                 validar={obrigatorio}
               />
               <Campo
-                label={<span className="tooltip" data-tooltip="Data e hora em que o sinistro ocorreu.">Data e hora da ocorrência</span>}
+                label={
+                  <span className="tooltip" data-tooltip="Data e hora em que o sinistro ocorreu.">
+                    Data e hora da ocorrência
+                  </span>
+                }
                 type="datetime-local"
                 max={agora}
                 value={f.quando}

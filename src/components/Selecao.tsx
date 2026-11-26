@@ -44,7 +44,12 @@ export function Selecao({
     <div className={`f ${erroExibido ? 'inv' : ''} ${className ?? ''}`}>
       <label htmlFor={id}>
         {label}
-        {required && <span className="req" aria-hidden="true"> *</span>}
+        {required && (
+          <span className="req" aria-hidden="true">
+            {' '}
+            *
+          </span>
+        )}
       </label>
       <select
         id={id}

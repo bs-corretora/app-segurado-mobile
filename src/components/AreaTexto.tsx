@@ -13,7 +13,19 @@ export function AreaTexto({
   maxLength,
   validar,
   className,
-}: Pick<CampoProps, 'label' | 'value' | 'onChange' | 'onBlur' | 'erro' | 'required' | 'placeholder' | 'maxLength' | 'validar' | 'className'>) {
+}: Pick<
+  CampoProps,
+  | 'label'
+  | 'value'
+  | 'onChange'
+  | 'onBlur'
+  | 'erro'
+  | 'required'
+  | 'placeholder'
+  | 'maxLength'
+  | 'validar'
+  | 'className'
+>) {
   const id = useId();
   const [erroLocal, setErroLocal] = useState<string | undefined>();
 
@@ -34,7 +46,12 @@ export function AreaTexto({
     <div className={`f ${erroExibido ? 'inv' : ''} ${className ?? ''}`}>
       <label htmlFor={id}>
         {label}
-        {required && <span className="req" aria-hidden="true"> *</span>}
+        {required && (
+          <span className="req" aria-hidden="true">
+            {' '}
+            *
+          </span>
+        )}
       </label>
       <textarea
         id={id}

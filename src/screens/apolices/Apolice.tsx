@@ -50,9 +50,39 @@ export function Apolice({ arg }: { arg?: string }) {
               <Tag s={a.status} />
             </div>
             <KV k="Número" v={a.numero} />
-            <KV k={<span className="tooltip" data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas.">Início da vigência</span>} v={data(a.inicio_vigencia)} />
-            <KV k={<span className="tooltip" data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas.">Fim da vigência</span>} v={data(a.fim_vigencia)} />
-            <KV k={<span className="tooltip" data-tooltip="Valor que você paga pelo seguro (mensal ou anual).">Prêmio</span>} v={moeda(a.premio)} />
+            <KV
+              k={
+                <span
+                  className="tooltip"
+                  data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas."
+                >
+                  Início da vigência
+                </span>
+              }
+              v={data(a.inicio_vigencia)}
+            />
+            <KV
+              k={
+                <span
+                  className="tooltip"
+                  data-tooltip="Período em que o seguro está ativo. Início e fim das coberturas."
+                >
+                  Fim da vigência
+                </span>
+              }
+              v={data(a.fim_vigencia)}
+            />
+            <KV
+              k={
+                <span
+                  className="tooltip"
+                  data-tooltip="Valor que você paga pelo seguro (mensal ou anual)."
+                >
+                  Prêmio
+                </span>
+              }
+              v={moeda(a.premio)}
+            />
           </div>
           {envio.erro && (
             <Aviso tipo="err">

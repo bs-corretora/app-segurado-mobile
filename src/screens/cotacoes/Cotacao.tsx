@@ -19,13 +19,19 @@ function ResumoCotacao({ c }: { c: CotacaoApi }) {
   // Substitui "Cobertura: X" por versão com tooltip
   const regex = /Cobertura: ([^·]+)/;
   const match = partes.match(regex);
-  
+
   if (match) {
     const [antes, depois] = partes.split(regex);
     return (
       <>
         {antes}
-        <span className="tooltip" data-tooltip="O que o seguro protege. Ex.: Colisão, Roubo, Incêndio, Danos a terceiros.">Cobertura</span>: {match[1]}
+        <span
+          className="tooltip"
+          data-tooltip="O que o seguro protege. Ex.: Colisão, Roubo, Incêndio, Danos a terceiros."
+        >
+          Cobertura
+        </span>
+        : {match[1]}
         {depois}
       </>
     );

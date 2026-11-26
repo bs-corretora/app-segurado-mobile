@@ -55,7 +55,12 @@ export function Caixa({
           aria-required={required}
         />
         <span>{children}</span>
-        {required && <span className="req" aria-hidden="true"> *</span>}
+        {required && (
+          <span className="req" aria-hidden="true">
+            {' '}
+            *
+          </span>
+        )}
       </label>
       <MsgCampo id={`${id}-m`} erro={erroExibido} />
     </div>

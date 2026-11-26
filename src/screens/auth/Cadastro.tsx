@@ -57,7 +57,9 @@ export function Cadastro() {
   return (
     <div className="form-container">
       <form onSubmit={aoEnviar} noValidate className="form-grid">
-        <p className="legend-obrigatorio" aria-hidden="true">* obrigatório</p>
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
         <h1>Criar conta</h1>
         <Campo
           label="Nome completo"

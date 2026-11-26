@@ -64,7 +64,9 @@ export function CotForm({ arg }: { arg?: string }) {
   return (
     <div className="form-container">
       <form onSubmit={aoEnviar} noValidate className="form-grid">
-        <p className="legend-obrigatorio" aria-hidden="true">* obrigatório</p>
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
         <div className="card full-width">
           <span className="mut">Produto</span>
           <br />

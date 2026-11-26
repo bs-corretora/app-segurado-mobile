@@ -80,7 +80,9 @@ export function Inicio() {
       <h2>Minhas apólices ativas</h2>
       {resumo.apolices_ativas.length ? (
         <div className="grid-responsive">
-          {resumo.apolices_ativas.map((a) => <CartaoApolice key={a.id} a={a} />)}
+          {resumo.apolices_ativas.map((a) => (
+            <CartaoApolice key={a.id} a={a} />
+          ))}
         </div>
       ) : (
         <Vazio texto="Você não tem apólice ativa no momento.">

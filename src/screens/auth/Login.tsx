@@ -31,7 +31,9 @@ export function Login() {
   return (
     <div className="form-container">
       <form onSubmit={aoEnviar} noValidate className="form-grid">
-        <p className="legend-obrigatorio" aria-hidden="true">* obrigatório</p>
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
         <Logo />
         <h1 className="tc">Bem-vindo de volta</h1>
         <Campo

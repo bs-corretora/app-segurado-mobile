@@ -40,11 +40,22 @@ function FormDados({ perfil }: { perfil: PerfilApi }) {
   return (
     <div className="form-container">
       <form onSubmit={aoEnviar} noValidate className="form-grid">
-        <p className="legend-obrigatorio" aria-hidden="true">* obrigatório</p>
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
         <div className="card full-width">
-          <div className="kv-row"><span>Nome</span><b>{perfil.nome}</b></div>
-          <div className="kv-row"><span>CPF</span><b>{mascaraCpf(perfil.cpf)}</b></div>
-          <div className="kv-row"><span>E-mail</span><b>{perfil.email}</b></div>
+          <div className="kv-row">
+            <span>Nome</span>
+            <b>{perfil.nome}</b>
+          </div>
+          <div className="kv-row">
+            <span>CPF</span>
+            <b>{mascaraCpf(perfil.cpf)}</b>
+          </div>
+          <div className="kv-row">
+            <span>E-mail</span>
+            <b>{perfil.email}</b>
+          </div>
         </div>
         <p className="mut">Para mudar nome, CPF ou e-mail, fale com a BS Seguros.</p>
         <Campo
@@ -121,7 +132,9 @@ function FormSenha() {
   return (
     <div className="form-container">
       <form onSubmit={aoEnviar} noValidate className="form-grid">
-        <p className="legend-obrigatorio" aria-hidden="true">* obrigatório</p>
+        <p className="legend-obrigatorio" aria-hidden="true">
+          * obrigatório
+        </p>
         <h2>Trocar senha</h2>
         <Campo
           label="Senha atual"

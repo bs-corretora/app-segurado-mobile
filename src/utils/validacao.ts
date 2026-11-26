@@ -2,8 +2,7 @@
 export type Validador = (valor: string) => string | undefined; // undefined = válido, string = mensagem de erro
 
 /** Valida se o campo está preenchido (não vazio, não apenas espaços). */
-export const obrigatorio: Validador = (valor) =>
-  valor.trim() ? undefined : 'Campo obrigatório.';
+export const obrigatorio: Validador = (valor) => (valor.trim() ? undefined : 'Campo obrigatório.');
 
 /** Valida nome completo: não vazio, não apenas números, mínimo 2 partes (nome e sobrenome). */
 export const nomeCompleto: Validador = (valor) => {
@@ -21,7 +20,8 @@ export const email: Validador = (valor) => {
   const v = valor.trim();
   if (!v) return 'Informe seu e-mail.';
   // RFC 5322 simplificado
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'Informe um e-mail válido (ex.: voce@dominio.com).';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
+    return 'Informe um e-mail válido (ex.: voce@dominio.com).';
   return undefined;
 };
 
@@ -49,7 +49,8 @@ export const cpf: Validador = (valor) => {
 export const telefone: Validador = (valor) => {
   const digitos = valor.replace(/\D/g, '');
   if (!digitos) return 'Informe o telefone com DDD.';
-  if (digitos.length !== 10 && digitos.length !== 11) return 'Informe o telefone com DDD (10 ou 11 dígitos).';
+  if (digitos.length !== 10 && digitos.length !== 11)
+    return 'Informe o telefone com DDD (10 ou 11 dígitos).';
   return undefined;
 };
 
@@ -63,7 +64,10 @@ export const cep: Validador = (valor) => {
 
 /** Valida placa veicular (formato antigo AAA-9999 ou Mercosul AAA9A99). */
 export const placa: Validador = (valor) => {
-  const v = valor.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+  const v = valor
+    .trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, '');
   if (!v) return 'Informe a placa do veículo.';
   // AAA-9999 (antigo) = 7 chars | AAA9A99 (Mercosul) = 7 chars
   if (v.length !== 7) return 'Placa deve ter 7 caracteres (ex.: ABC-1234 ou ABC1D23).';
@@ -98,29 +102,35 @@ export const senhaMin8: Validador = (valor) => {
 };
 
 /** Valida confirmação de senha (precisa do valor da senha original). */
-export const confirmaSenha = (senhaOriginal: string): Validador => (valor) => {
-  if (!valor) return 'Confirme sua senha.';
-  if (valor !== senhaOriginal) return 'As senhas não coincidem.';
-  return undefined;
-};
+export const confirmaSenha =
+  (senhaOriginal: string): Validador =>
+  (valor) => {
+    if (!valor) return 'Confirme sua senha.';
+    if (valor !== senhaOriginal) return 'As senhas não coincidem.';
+    return undefined;
+  };
 
 /** Valida texto livre com tamanho mínimo e máximo. */
-export const textoLivre = (min: number, max: number): Validador => (valor) => {
-  const v = valor.trim();
-  if (!v) return 'Campo obrigatório.';
-  if (v.length < min) return `Mínimo ${min} caracteres.`;
-  if (v.length > max) return `Máximo ${max} caracteres.`;
-  return undefined;
-};
+export const textoLivre =
+  (min: number, max: number): Validador =>
+  (valor) => {
+    const v = valor.trim();
+    if (!v) return 'Campo obrigatório.';
+    if (v.length < min) return `Mínimo ${min} caracteres.`;
+    if (v.length > max) return `Máximo ${max} caracteres.`;
+    return undefined;
+  };
 
 /** Compositor: executa múltiplos validadores em sequência, retorna o primeiro erro. */
-export const compor = (...validadores: Validador[]): Validador => (valor) => {
-  for (const v of validadores) {
-    const erro = v(valor);
-    if (erro) return erro;
-  }
-  return undefined;
-};
+export const compor =
+  (...validadores: Validador[]): Validador =>
+  (valor) => {
+    for (const v of validadores) {
+      const erro = v(valor);
+      if (erro) return erro;
+    }
+    return undefined;
+  };
 
 /** Mapa de validadores por tipo de campo comum para uso rápido. */
 export const validadoresPorTipo = {

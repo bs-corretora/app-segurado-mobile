@@ -53,7 +53,12 @@ export function Campo({
     <div className={`f ${erroExibido ? 'inv' : ''} ${className ?? ''}`}>
       <label htmlFor={id}>
         {label}
-        {required && <span className="req" aria-hidden="true"> *</span>}
+        {required && (
+          <span className="req" aria-hidden="true">
+            {' '}
+            *
+          </span>
+        )}
       </label>
       <input
         id={id}

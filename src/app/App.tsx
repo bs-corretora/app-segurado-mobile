@@ -78,7 +78,7 @@ function Sidebar() {
   const { cur, go } = useNav();
   const { resumo } = useSessao();
   const [n] = cur;
-  
+
   const navItems = [
     { id: 'home', label: 'Início', icon: 'home' as NomeIcone },
     { id: 'cotacao', label: 'Cotação', icon: 'request_quote' as NomeIcone },
